@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/testing-the-api', function() {
-    return ['message' => 'hello'];
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::resource('posts', 'PostController');
