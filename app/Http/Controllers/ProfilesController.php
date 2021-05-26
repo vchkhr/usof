@@ -7,12 +7,27 @@ use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
 {
-    public function index($user)
+    public function index(User $user)
     {
-        $user = User::find($user);
-        
-        return view('profiles.index', [
-            'user' => $user
+        return view('profiles.index', compact('user'));
+    }
+
+    public function edit(User $user)
+    {
+        $this->authorize('update', $user);
+
+        return view('profiles.edit', compact('user'));
+    }
+
+    public function update(User $user)
+    {
+        $data = request()->validate([
+            'name' => 'required',
+            'image' => ''
         ]);
+
+        auth()->user()->update($data);
+
+        return redirect("/profile/{$user->id}");
     }
 }
