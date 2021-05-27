@@ -13,6 +13,13 @@ class QuestionsController extends Controller
 
     public function store()
     {
-        dd(request()->all());
+        $data = request()->validate([
+            'title' => 'required',
+            'image' => 'image'
+        ]);
+
+        \App\Models\Post::create(); 
+
+        request()->all();
     }
 }
