@@ -22,3 +22,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('home');
+
+Route::get("/question/create", [App\Http\Controllers\QuestionsController::class, 'create']);
+Route::post("/question", [App\Http\Controllers\QuestionsController::class, 'store']);

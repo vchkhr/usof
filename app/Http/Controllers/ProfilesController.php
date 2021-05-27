@@ -10,6 +10,6 @@ class ProfilesController extends Controller
     {
         $user = \App\Models\User::findOrFail($user);
 
-        return view('home', compact('user'));
+        return view('profiles.index', compact('user'));
     }
 }
