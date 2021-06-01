@@ -23,6 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('home');
 
-Route::get("/question/{question}", [App\Http\Controllers\QuestionsController::class, 'show']);
 Route::get("/question/create", [App\Http\Controllers\QuestionsController::class, 'create']);
+Route::get("/question/{question}", [App\Http\Controllers\QuestionsController::class, 'show']);
 Route::post("/question", [App\Http\Controllers\QuestionsController::class, 'store']);
