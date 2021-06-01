@@ -9,12 +9,20 @@
 
                 <div class="card-body">
                     <div class="d-flex">
-                        <div>
-                        
-                        </div>
+                    </div>
 
-                        <div>
-                        </div>
+                    <div>
+                        <h4>Questions</h4>
+
+                        @if(count($user->questions) == 0)
+                            <p>No questions yet</p>
+                        @endif
+                        
+                        <ul>
+                        @foreach($user->questions as $question)
+                            <li><a href="/question/{{ $question->id }}">{{ $question->title }}</a> @ {{ explode(" ", $question->created_at)[0] }}</li>
+                        @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>

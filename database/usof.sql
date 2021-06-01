@@ -140,7 +140,7 @@ CREATE TABLE `questions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `questions_user_id_index` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,6 +149,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
+INSERT INTO `questions` VALUES (1,1,'Meaning of Life','What is it?','uploads/JPiPVtpzDV5oMSGcsGDEhI0lGSvC5fvjU2ogHmSI.jpg','2021-06-01 09:13:37','2021-06-01 09:13:37'),(2,1,'Teach me how to breathe','null','null','2021-06-01 09:38:33','2021-06-01 09:38:33');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +180,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','EpTZEXfQEwzaRldf9GAzWypOZ88Oc9hJDjHpk5zXFZ3T7zyn6Uu1CyENufYk','2021-05-27 10:50:01','2021-05-27 10:50:01');
+INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','wfgKESsTfd9onIPqXfX4tos5wY8zJPeZJWiQ030fpRoKuincxtxyfhEYWCH4','2021-05-27 10:50:01','2021-05-27 10:50:01');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -192,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-27 19:00:31
+-- Dump completed on 2021-06-01 16:01:53

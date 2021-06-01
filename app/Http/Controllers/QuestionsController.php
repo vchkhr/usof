@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         return view('questions/create');
@@ -13,13 +18,35 @@ class QuestionsController extends Controller
 
     public function store()
     {
+
         $data = request()->validate([
             'title' => 'required',
-            'image' => 'image'
+            'description' => 'string|nullable',
+            'image' => 'image|nullable'
         ]);
 
-        \App\Models\Post::create(); 
+        if ($data['description'] == null) {
+            $data['description'] = "null";
+        }
 
-        request()->all();
+        if (array_key_exists('image', $data) == true) {
+            $imagePath = request('image')->store('uploads', 'public');
+        }
+        else {
+            $imagePath = "null";
+        }
+
+        auth()->user()->questions()->create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'image' => $imagePath
+        ]);
+
+        return redirect('/profile/' . auth()->user()->id);
+    }
+
+    public function show(\App\Models\Question $question)
+    {
+        return view('questions.show', compact('question'));
     }
 }
