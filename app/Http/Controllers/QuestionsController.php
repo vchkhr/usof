@@ -18,11 +18,10 @@ class QuestionsController extends Controller
 
     public function store()
     {
-
         $data = request()->validate([
             'title' => 'required',
             'description' => 'string|nullable',
-            'image' => 'image|nullable'
+            'image' => 'image|nullable',
         ]);
 
         if ($data['description'] == null) {

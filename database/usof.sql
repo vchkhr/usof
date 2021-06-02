@@ -16,6 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `answers`
+--
+
+DROP TABLE IF EXISTS `answers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `answers` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `question_id` bigint unsigned NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `answers_post_id_index` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `answers`
+--
+
+LOCK TABLES `answers` WRITE;
+/*!40000 ALTER TABLE `answers` DISABLE KEYS */;
+INSERT INTO `answers` VALUES (1,2,'What is it?','null','2021-06-02 10:22:03','2021-06-02 10:22:03',1),(2,2,'idk how...','null','2021-06-02 11:21:18','2021-06-02 11:21:18',1),(3,3,'I love Apple...','null','2021-06-02 11:39:18','2021-06-02 11:39:18',1);
+/*!40000 ALTER TABLE `answers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -56,7 +86,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +95,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2021_05_27_140439_create_profiles_table',2),(5,'2021_05_27_143957_create_questions_table',3);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2021_05_27_140439_create_profiles_table',2),(5,'2021_05_27_143957_create_questions_table',3),(6,'2021_06_01_141222_create_answers_table',4),(7,'2021_06_02_131049_add_user_id_to_answers_table',5),(8,'2021_06_02_140910_post_id_to_question_id',6),(9,'2021_06_02_141147_post_id_to_question_id_in_answers',7);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,7 +140,7 @@ CREATE TABLE `profiles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `profiles_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +149,7 @@ CREATE TABLE `profiles` (
 
 LOCK TABLES `profiles` WRITE;
 /*!40000 ALTER TABLE `profiles` DISABLE KEYS */;
-INSERT INTO `profiles` VALUES (1,1,'Title',NULL,NULL,'2021-05-27 11:12:10','2021-05-27 11:12:10');
+INSERT INTO `profiles` VALUES (1,1,'Title',NULL,NULL,'2021-05-27 11:12:10','2021-05-27 11:12:10'),(2,3,NULL,NULL,NULL,'2021-06-01 10:56:31','2021-06-01 10:56:31');
 /*!40000 ALTER TABLE `profiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +170,7 @@ CREATE TABLE `questions` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `questions_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +179,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,1,'Meaning of Life','What is it?','uploads/JPiPVtpzDV5oMSGcsGDEhI0lGSvC5fvjU2ogHmSI.jpg','2021-06-01 09:13:37','2021-06-01 09:13:37'),(2,1,'Teach me how to breathe','null','null','2021-06-01 09:38:33','2021-06-01 09:38:33');
+INSERT INTO `questions` VALUES (1,1,'Meaning of Life','What is it?','uploads/JPiPVtpzDV5oMSGcsGDEhI0lGSvC5fvjU2ogHmSI.jpg','2021-06-01 09:13:37','2021-06-01 09:13:37'),(2,1,'Teach me how to breathe','null','null','2021-06-01 09:38:33','2021-06-01 09:38:33'),(3,3,'Why you hate Apple?','Explain me this behavior.','null','2021-06-02 11:37:41','2021-06-02 11:37:41');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +201,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +210,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','wfgKESsTfd9onIPqXfX4tos5wY8zJPeZJWiQ030fpRoKuincxtxyfhEYWCH4','2021-05-27 10:50:01','2021-05-27 10:50:01');
+INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','M4XS8TmkDwJ4v1UefoYcOZVDFxtLs567mWAeKHx4sS9nVmt3m4H447KAVbgb','2021-05-27 10:50:01','2021-05-27 10:50:01'),(3,'kliuieva','kliuieva@gmail.com',NULL,'$2y$10$JmHKK111l1WaXihl/tMHM.SuRNpDYw5m3hAnH2DC.R4eRCjUsBh5K','2nCaEzDsVwjMNVMyeA4qfPGFPV6VOTDRNYqOF7ILAIS4SqiyJIei8IjjCHk5','2021-06-01 10:56:31','2021-06-01 10:56:31');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -193,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-01 16:01:53
+-- Dump completed on 2021-06-02 17:41:37
