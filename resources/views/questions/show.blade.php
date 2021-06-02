@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Question</div>
+                <div class="card-header">Question #{{ $question->id }}</div>
 
                 <div class="card-body">
                     <h3>{{ $question->title }}</h3>

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Profile</div>
+                <div class="card-header">Profile #{{ $user->id }}</div>
 
                 <div class="card-body">
                     <div class="d-flex">
@@ -15,7 +15,12 @@
 
                         <div>
                             <h3>{{ $user->name }}</h3>
-                            <p>{{ $user->profile->title }}</p>
+                            <p>{{ $user->profile->real_name }}</p>
+                            <p>{{ $user->profile->description }}</p>
+                            <p>{{ $user->profile->url }}</p>
+                            <p>{{ $user->profile->profile_photo }}</p>
+
+                            <p><a href="/profile/{{ $user->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Profile</a></p>
                         </div>
                     </div>
 

@@ -21,7 +21,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('home');
+Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('show');
+Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('edit');
+Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'update'])->name('profile.update');
 
 Route::get("/question/create", [App\Http\Controllers\QuestionsController::class, 'create']);
 Route::get("/question/{question}", [App\Http\Controllers\QuestionsController::class, 'show']);
