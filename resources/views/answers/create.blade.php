@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="display: none;">
                             <label for="question_id" class="col-md-4 col-form-label text-md-right">question_id</label>
 
                             <div class="col-md-6">

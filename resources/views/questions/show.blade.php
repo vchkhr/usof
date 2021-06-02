@@ -42,7 +42,11 @@
                 @endif
 
                 @for($i = count($question->answers) - 1; $i >= 0; $i--)
-                    {{ $question->answers[$i]->description }}
+                    <p>{{ $question->answers[$i]->description }}</p>
+
+                    @if($question->answers[$i]->image != "null")
+                        <p><a href="/storage/{{ $question->answers[$i]->image }}" target="_blank"><img src="/storage/{{ $question->answers[$i]->image }}" style="max-width: 100px; border-radius: 5px;"></a></p>
+                    @endif
 
                     <p class="mt-2"><a href="/profile/{{ $question->answers[$i]->user_id }}">User #{{ $question->answers[$i]->user_id }}</a> @ {{ $question->answers[$i]->created_at }}</p>
 
