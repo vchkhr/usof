@@ -32,7 +32,7 @@ CREATE TABLE `answers` (
   `user_id` bigint unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `answers_post_id_index` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `answers` (
 
 LOCK TABLES `answers` WRITE;
 /*!40000 ALTER TABLE `answers` DISABLE KEYS */;
-INSERT INTO `answers` VALUES (1,2,'What is it?','null','2021-06-02 10:22:03','2021-06-02 10:22:03',1),(2,2,'idk how...','null','2021-06-02 11:21:18','2021-06-02 11:21:18',1),(3,3,'I love Apple...','null','2021-06-02 11:39:18','2021-06-02 11:39:18',1);
+INSERT INTO `answers` VALUES (1,2,'What is it?','null','2021-06-02 10:22:03','2021-06-02 10:22:03',1),(2,2,'idk how...','null','2021-06-02 11:21:18','2021-06-02 11:21:18',1),(3,3,'I love Apple...','null','2021-06-02 11:39:18','2021-06-02 11:39:18',1),(4,3,'Their logo is the best one!!!','uploads/KXBl7CTrqLiMSASiMYK4nJmbjMEhXLVAcdXj455l.svg','2021-06-02 11:55:53','2021-06-02 11:55:53',1);
 /*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +210,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','M4XS8TmkDwJ4v1UefoYcOZVDFxtLs567mWAeKHx4sS9nVmt3m4H447KAVbgb','2021-05-27 10:50:01','2021-05-27 10:50:01'),(3,'kliuieva','kliuieva@gmail.com',NULL,'$2y$10$JmHKK111l1WaXihl/tMHM.SuRNpDYw5m3hAnH2DC.R4eRCjUsBh5K','2nCaEzDsVwjMNVMyeA4qfPGFPV6VOTDRNYqOF7ILAIS4SqiyJIei8IjjCHk5','2021-06-01 10:56:31','2021-06-01 10:56:31');
+INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','xi5hqJP7OH3oWb5FQmElAxSJg8VtMFDJn2AqbI7ugiZQhckHbihFkl7NV8gN','2021-05-27 10:50:01','2021-05-27 10:50:01'),(3,'kliuieva','kliuieva@gmail.com',NULL,'$2y$10$JmHKK111l1WaXihl/tMHM.SuRNpDYw5m3hAnH2DC.R4eRCjUsBh5K','mAqq352WwbUVPeoJg5RJIGj4dYOplGBsyWzXxNq8dFHKzpS7OA8ZnkN1gQZ2','2021-06-01 10:56:31','2021-06-01 10:56:31');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -223,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-02 17:41:37
+-- Dump completed on 2021-06-02 18:14:23

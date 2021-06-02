@@ -15,12 +15,12 @@
                         <h4>Questions</h4>
 
                         @if(count($questions) == 0)
-                            <p>No questions yet</p>
+                        <p>No questions yet</p>
                         @endif
                         
                         <ul>
                         @for($i = count($questions) - 1; $i >= 0; $i--)
-                            <li><a href="/question/{{ $questions[$i]->id }}">{{ $questions[$i]->title }}</a> @ {{ explode(" ", $questions[$i]->created_at)[0] }}</li>
+                        <li><a href="/question/{{ $questions[$i]->id }}">{{ $questions[$i]->title }}</a> @ {{ $questions[$i]->created_at }}</li>
                         @endfor
                         </ul>
                     </div>

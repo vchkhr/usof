@@ -23,12 +23,12 @@
                         <h4>Questions</h4>
 
                         @if(count($user->questions) == 0)
-                            <p>No questions yet</p>
+                        <p>No questions yet</p>
                         @endif
                         
                         <ul>
                         @for ($i = count($user->questions) - 1; $i >= 0; $i--)
-                            <li><a href="/question/{{ $user->questions[$i]->id }}">{{ $user->questions[$i]->title }}</a> @ {{ $user->questions[$i]->created_at }}</li>
+                        <li><a href="/question/{{ $user->questions[$i]->id }}">{{ $user->questions[$i]->title }}</a> @ {{ $user->questions[$i]->created_at }}</li>
                         @endfor
                         </ul>
                     </div>
