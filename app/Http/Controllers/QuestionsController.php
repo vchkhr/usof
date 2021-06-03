@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function create()
     {
@@ -23,10 +19,6 @@ class QuestionsController extends Controller
             'description' => 'string|nullable',
             'image' => 'image|nullable',
         ]);
-
-        if ($data['description'] == null) {
-            $data['description'] = "null";
-        }
 
         if (array_key_exists('image', $data) == true) {
             $imagePath = request('image')->store('uploads', 'public');

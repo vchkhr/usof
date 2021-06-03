@@ -26,10 +26,6 @@ class ProfilesController extends Controller
             'profile_photo' => '',
         ]);
 
-        if ($data['profile_photo'] == null) {
-            $data['profile_photo'] = "null";
-        }
-
         auth()->user()->profile->update($data);
 
         return redirect("/profile/{$user->id}");

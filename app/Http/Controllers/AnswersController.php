@@ -8,10 +8,6 @@ use DB;
 
 class AnswersController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
     public function create()
     {
         return view('answers.create');
@@ -29,7 +25,7 @@ class AnswersController extends Controller
             $imagePath = request('image')->store('uploads', 'public');
         }
         else {
-            $imagePath = "null";
+            $imagePath = null;
         }
 
         auth()->user()->answers()->create([
