@@ -13,15 +13,39 @@
 
                         </div>
 
-                        <div>
-                            <h3>{{ $user->name }}</h3>
-                            <p>{{ $user->profile->real_name }}</p>
-                            <p>{{ $user->profile->description }}</p>
-                            <p>{{ $user->profile->url }}</p>
-                            <p>{{ $user->profile->profile_photo }}</p>
+                        <div class="d-flex">
+                            @if($user->profile->profile_photo != null)
+                            <div class="mr-2">
+                                <a href="/storage/{{ $user->profile->profile_photo }}" target="_blank">
+                                    <img src="/storage/{{ $user->profile->profile_photo }}" style="width: 25px;">
+                                </a>
+                            </div>
+                            @endif
 
-                            <p><a href="/profile/{{ $user->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Profile</a></p>
+                            <div>
+                                <h3>
+                                    <span>{{ $user->name }}</span>
+
+                                    @if($user->profile->real_name != null)
+                                        <small class="text-muted">({{ $user->profile->real_name }})</small>
+                                    @endif
+                                </h3>
+
+                                <p class="@if($user->profile->url != null) mb-0 @endif">{{ $user->profile->description }}</p>
+
+                                @if($user->profile->url != null)
+                                <a href="{{ $user->profile->url }}" target="_blank">
+                                    <p>{{ explode("://", $user->profile->url)[1] }}</p>
+                                </a>
+                                @endif
+                            </div>
                         </div>
+                    </div>
+
+                    <div>
+                        @can('update', $user->profile)
+                        <p><a href="/profile/{{ $user->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Profile</a></p>
+                        @endcan
                     </div>
 
                     <div>

@@ -15,10 +15,22 @@
                     @endif
 
                     @if ($question->image != "null")
-                    <a href="/storage/{{ $question->image }}" target="_blank"><img src="/storage/{{ $question->image }}" style="max-width: 100%; border-radius: 5px;"></a>
+                    <a href="/storage/{{ $question->image }}" target="_blank">
+                        <img src="/storage/{{ $question->image }}" style="max-width: 100%; border-radius: 5px;">
+                    </a>
                     @endif
 
-                    <p class="mt-4"><a href="/profile/{{ $question->user_id }}">{{ $question->user->name }}</a> @ {{ $question->created_at }}</p>
+                    <p class="mt-4">
+                        <a href="/profile/{{ $question->user_id }}">
+                            @if($question->user->profile->profile_photo != null)
+                            <img src="/storage/{{ $question->user->profile->profile_photo }}" style="width: 1em; margin-bottom: 2px;">
+                            @endif
+
+                            <span>{{ $question->user->name }}</span>
+                        </a>
+
+                        <span>@ {{ $question->created_at }}</span>
+                    </p>
 
                     <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
                 </div>
@@ -50,7 +62,12 @@
                 @endif
 
                 <p class="mt-2">
-                    <a href="/profile/{{ $question->answers[$i]->user_id }}">{{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->name }}</a>
+                    <a href="/profile/{{ $question->answers[$i]->user_id }}">
+                        @if(\App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profile_photo != null)
+                        <img src="/storage/{{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profile_photo }}" style="width: 1em; margin-bottom: 2px;">
+                        @endif
+                        {{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->name }}
+                    </a>
                     <span>@ {{ $question->answers[$i]->created_at }}</span>
                 </p>
 

@@ -16,7 +16,7 @@ class QuestionsController extends Controller
     {
         $data = request()->validate([
             'title' => 'required',
-            'description' => 'string|nullable',
+            'description' => 'nullable',
             'image' => 'image|nullable',
         ]);
 

@@ -8,7 +8,7 @@
                 <div class="card-header">Edit Profile #{{ $user->id }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/profile/{{ $user->id }}">
+                    <form method="POST" action="/profile/{{ $user->id }}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
 
@@ -58,7 +58,7 @@
                             <label for="profile_photo" class="col-md-4 col-form-label text-md-right">Profile Photo</label>
 
                             <div class="col-md-6">
-                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ old('profile_photo') ?? $user->profile->profile_photo }}" autocomplete="profile_photo">
+                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ old('profile_photo') }}" autocomplete="profile_photo">
 
                                 @error('profile_photo')
                                 <span class="invalid-feedback" role="alert">
