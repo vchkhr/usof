@@ -32,7 +32,7 @@ CREATE TABLE `answers` (
   `user_id` bigint unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `answers_post_id_index` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `answers` (
 
 LOCK TABLES `answers` WRITE;
 /*!40000 ALTER TABLE `answers` DISABLE KEYS */;
-INSERT INTO `answers` VALUES (1,2,'What is it?','null','2021-06-02 10:22:03','2021-06-02 10:22:03',1),(2,2,'idk how...','null','2021-06-02 11:21:18','2021-06-02 11:21:18',1),(3,3,'I love Apple...','null','2021-06-02 11:39:18','2021-06-02 11:39:18',1),(4,3,'Their logo is the best one!!!','uploads/KXBl7CTrqLiMSASiMYK4nJmbjMEhXLVAcdXj455l.svg','2021-06-02 11:55:53','2021-06-02 11:55:53',1);
+INSERT INTO `answers` VALUES (1,2,'What is it?',NULL,'2021-06-02 10:22:03','2021-06-02 10:22:03',1),(2,2,'idk how...',NULL,'2021-06-02 11:21:18','2021-06-02 11:21:18',1),(3,3,'I love Apple...',NULL,'2021-06-02 11:39:18','2021-06-02 11:39:18',1),(4,3,'Their logo is the best one!!!','uploads/KXBl7CTrqLiMSASiMYK4nJmbjMEhXLVAcdXj455l.svg','2021-06-02 11:55:53','2021-06-02 11:55:53',1),(5,2,'I breathe only when I code on JavaScript 💛',NULL,'2021-06-03 12:50:22','2021-06-03 12:50:22',4);
 /*!40000 ALTER TABLE `answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +141,7 @@ CREATE TABLE `profiles` (
   `profile_photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `profiles_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +150,7 @@ CREATE TABLE `profiles` (
 
 LOCK TABLES `profiles` WRITE;
 /*!40000 ALTER TABLE `profiles` DISABLE KEYS */;
-INSERT INTO `profiles` VALUES (1,1,'v',NULL,NULL,'2021-05-27 11:12:10','2021-06-02 13:54:29',NULL),(2,3,NULL,NULL,NULL,'2021-06-01 10:56:31','2021-06-01 10:56:31',NULL);
+INSERT INTO `profiles` VALUES (1,1,'Viacheslav','Likes Apple','https://vchkhr.github.io','2021-05-27 11:12:10','2021-06-03 10:45:55','uploads/tBajqnlqvQpAWUiMTnuqG0tQkOOOQQK1obYJjJEV.svg'),(2,3,'Liza','Loves Apple','http://lizbethzepesch.github.io','2021-06-01 10:56:31','2021-06-03 10:53:54','uploads/dAcRV3ElKX9XTwajwR3wy2Zi6J6t45ttiGNo5vAj.png'),(3,4,NULL,NULL,NULL,'2021-06-03 12:45:49','2021-06-03 12:45:49',NULL);
 /*!40000 ALTER TABLE `profiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +180,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,1,'Meaning of Life','What is it?','uploads/JPiPVtpzDV5oMSGcsGDEhI0lGSvC5fvjU2ogHmSI.jpg','2021-06-01 09:13:37','2021-06-01 09:13:37'),(2,1,'Teach me how to breathe','null','null','2021-06-01 09:38:33','2021-06-01 09:38:33'),(3,3,'Why do you hate Apple?','Explain me this behavior.','null','2021-06-02 11:37:41','2021-06-02 11:37:41');
+INSERT INTO `questions` VALUES (1,1,'Meaning of Life','What is it?','uploads/JPiPVtpzDV5oMSGcsGDEhI0lGSvC5fvjU2ogHmSI.jpg','2021-06-01 09:13:37','2021-06-01 09:13:37'),(2,1,'Teach me how to breathe',NULL,NULL,'2021-06-01 09:38:33','2021-06-01 09:38:33'),(3,3,'Why do you hate Apple?','Explain me this behavior.',NULL,'2021-06-02 11:37:41','2021-06-02 11:37:41');
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +202,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +211,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','xi5hqJP7OH3oWb5FQmElAxSJg8VtMFDJn2AqbI7ugiZQhckHbihFkl7NV8gN','2021-05-27 10:50:01','2021-05-27 10:50:01'),(3,'zepesch','kliuieva@gmail.com',NULL,'$2y$10$JmHKK111l1WaXihl/tMHM.SuRNpDYw5m3hAnH2DC.R4eRCjUsBh5K','mAqq352WwbUVPeoJg5RJIGj4dYOplGBsyWzXxNq8dFHKzpS7OA8ZnkN1gQZ2','2021-06-01 10:56:31','2021-06-01 10:56:31');
+INSERT INTO `users` VALUES (1,'vchkhr','vchkhr@gmail.com',NULL,'$2y$10$JhtLuTYTvM5ehJrbTuuzFuZk6xwu6Mx1ZJD9gJVSTuCSop/XQfsUC','3kF2p33ZAeMIV5bX9eyEvYDBPeZSkLKzyeqyEHrlaXjTYwzTK42LuEMzMhwj','2021-05-27 10:50:01','2021-05-27 10:50:01'),(3,'zepesch','kliuieva@gmail.com',NULL,'$2y$10$JmHKK111l1WaXihl/tMHM.SuRNpDYw5m3hAnH2DC.R4eRCjUsBh5K','b2sFW0Kd29JWaZGdv5Oi6K991MW1IzSnf0Ak5YSxuIvO6r4gDJ1pG33yac6J','2021-06-01 10:56:31','2021-06-01 10:56:31'),(4,'mykola','mykola@gmail.com',NULL,'$2y$10$nvV8jxEvB.amezXWFJrTfecAxm/HGLfXlA3ikSgUXg5xvnJjpiLuO',NULL,'2021-06-03 12:45:49','2021-06-03 12:45:49');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -224,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-03 16:03:28
+-- Dump completed on 2021-06-03 19:11:28
