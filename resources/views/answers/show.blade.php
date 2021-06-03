@@ -10,12 +10,12 @@
                 <div class="card-body">
                     <p>{{ $question->title }}</p>
 
-                    @if ($question->description != "null")
+                    @if ($question->description != null)
                     <p>{{ $question->description }}</p>
                     @endif
 
-                    @if ($question->image != "null")
-                    <img src="/storage/{{ $question->image }}" style="max-width: 100%; border-radius: 5px;">
+                    @if ($question->image != null)
+                    <img src="/storage/{{ $question->image }}" style="max-width: 100%;" class="rounded-circle">
                     @endif
 
                     <p class="mt-4"><a href="/profile/{{ $question->user_id }}">User #{{ $question->user_id }}</a> @ {{ $question->created_at }}</p>

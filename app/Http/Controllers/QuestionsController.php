@@ -24,7 +24,7 @@ class QuestionsController extends Controller
             $imagePath = request('image')->store('uploads', 'public');
         }
         else {
-            $imagePath = "null";
+            $imagePath = null;
         }
 
         auth()->user()->questions()->create([

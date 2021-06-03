@@ -34,7 +34,7 @@ class ProfilesController extends Controller
             $data['profile_photo'] = request('profile_photo')->store('uploads', 'public');
         }
         else {
-            $data['profile_photo'] = null;
+            $data['profile_photo'] = auth()->user()->profile->profile_photo;
         }
 
         auth()->user()->profile->update($data);

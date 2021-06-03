@@ -14,13 +14,11 @@
                         </div>
 
                         <div class="d-flex">
-                            @if($user->profile->profile_photo != null)
                             <div class="mr-2">
                                 <a href="/storage/{{ $user->profile->profile_photo }}" target="_blank">
-                                    <img src="/storage/{{ $user->profile->profile_photo }}" style="width: 25px;">
+                                    <img src="{{ $user->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
                                 </a>
                             </div>
-                            @endif
 
                             <div>
                                 <h3>
@@ -29,6 +27,16 @@
                                     @if($user->profile->real_name != null)
                                         <small class="text-muted">({{ $user->profile->real_name }})</small>
                                     @endif
+
+                                    <span class="mr-2"></span>
+
+                                    @can('update', $user->profile)
+                                    <a href="/profile/{{ $user->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Profile</a>
+                                    @endcan
+
+                                    @cannot('update', $user->profile)
+                                    <a href="/profile/{{ $user->id }}/subscribe" class="btn btn-success" role="button" data-bs-toggle="button">Subscribe</a>
+                                    @endcannot
                                 </h3>
 
                                 <p class="@if($user->profile->url != null) mb-0 @endif">{{ $user->profile->description }}</p>
@@ -40,12 +48,6 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
-
-                    <div>
-                        @can('update', $user->profile)
-                        <p><a href="/profile/{{ $user->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Profile</a></p>
-                        @endcan
                     </div>
 
                     <div>

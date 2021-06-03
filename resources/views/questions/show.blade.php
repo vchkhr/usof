@@ -10,11 +10,11 @@
                 <div class="card-body">
                     <h3>{{ $question->title }}</h3>
 
-                    @if ($question->description != "null")
+                    @if ($question->description != null)
                     <p>{{ $question->description }}</p>
                     @endif
 
-                    @if ($question->image != "null")
+                    @if ($question->image != null)
                     <a href="/storage/{{ $question->image }}" target="_blank">
                         <img src="/storage/{{ $question->image }}" style="max-width: 100%; border-radius: 5px;">
                     </a>
@@ -22,9 +22,7 @@
 
                     <p class="mt-4">
                         <a href="/profile/{{ $question->user_id }}">
-                            @if($question->user->profile->profile_photo != null)
-                            <img src="/storage/{{ $question->user->profile->profile_photo }}" style="width: 1em; margin-bottom: 2px;">
-                            @endif
+                            <img src="{{ $question->user->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
 
                             <span>{{ $question->user->name }}</span>
                         </a>
@@ -53,7 +51,7 @@
                 @for($i = 0; $i < count($question->answers); $i++)
                 <p class="@if ($i > 0) mt-3 @endif">{{ $question->answers[$i]->description }}</p>
 
-                @if($question->answers[$i]->image != "null")
+                @if($question->answers[$i]->image != null)
                 <p>
                     <a href="/storage/{{ $question->answers[$i]->image }}" target="_blank">
                         <img src="/storage/{{ $question->answers[$i]->image }}" style="max-width: 100px; border-radius: 5px;">
@@ -63,9 +61,7 @@
 
                 <p class="mt-2">
                     <a href="/profile/{{ $question->answers[$i]->user_id }}">
-                        @if(\App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profile_photo != null)
-                        <img src="/storage/{{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profile_photo }}" style="width: 1em; margin-bottom: 2px;">
-                        @endif
+                        <img src="{{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
                         {{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->name }}
                     </a>
                     <span>@ {{ $question->answers[$i]->created_at }}</span>
