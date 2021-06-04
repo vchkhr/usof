@@ -51,9 +51,12 @@
                 @for($i = 0; $i < count($question->answers); $i++)
                 <p class="@if ($i > 0) mt-3 @endif">{{ $question->answers[$i]->description }}</p>
 
+                {{ $question->answers[$i]->image }}
+
                 @if($question->answers[$i]->image != null)
                 <p>
                     <a href="/storage/{{ $question->answers[$i]->image }}" target="_blank">
+                        <img src="/{{ $question->answers[$i]->image }}" style="max-width: 100px; border-radius: 5px;">
                         <img src="/storage/{{ $question->answers[$i]->image }}" style="max-width: 100px; border-radius: 5px;">
                     </a>
                 </p>

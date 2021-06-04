@@ -15,7 +15,7 @@
 
                         <div class="d-flex">
                             <div class="mr-2">
-                                <a href="/storage/{{ $user->profile->profile_photo }}" target="_blank">
+                                <a href="{{ $user->profile->profileImage() }}" target="_blank">
                                     <img src="{{ $user->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
                                 </a>
                             </div>

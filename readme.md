@@ -1,12 +1,11 @@
 Install needed dependencies:
-1. `brew install php mysql node composer laravel`.
+1. `brew install php mysql composer`.
 2. `composer global require laravel/installer`.
 
 Go to project's folder and run:
 1. `composer install`.
 2. Set up your environment in `.env` file from the `.env.example`.
 3. `php artisan migrate` (you should have an empty `usof` database).
-4. `npm install && npm run dev`.
 
 To run the server enter:
 `php artisan serve`.

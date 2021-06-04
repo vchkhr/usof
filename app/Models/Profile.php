@@ -14,7 +14,7 @@ class Profile extends Model
     public function profileImage()
     {
         if ($this->profile_photo == null) {
-            return '/storage/profile/profile.jpg';
+            return '/storage/profile/profile.png';
         }
 
         return '/storage/' . $this->profile_photo;
