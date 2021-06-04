@@ -33,7 +33,7 @@ class QuestionsController extends Controller
             'image' => $imagePath
         ]);
 
-        return redirect('/profile/' . auth()->user()->id);
+        return redirect('/home/');
     }
 
     public function show(\App\Models\Question $question)

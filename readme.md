@@ -4,8 +4,9 @@ Install needed dependencies:
 
 Go to project's folder and run:
 1. `composer install`.
-2. `npm install && npm run dev`.
-3. `mysql -u root usof < database/usof.sql`
+2. Set up your environment in `.env` file from the `.env.example`.
+3. `php artisan migrate` (you should have an empty `usof` database).
+4. `npm install && npm run dev`.
 
 To run the server enter:
 `php artisan serve`.
