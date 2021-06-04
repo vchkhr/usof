@@ -49,6 +49,7 @@
                 @endif
 
                 @for($i = 0; $i < count($question->answers); $i++)
+                <a name="answer-{{ $question->answers[$i]->id }}"></a>
                 <p class="@if ($i > 0) mt-3 @endif">{{ $question->answers[$i]->description }}</p>
 
                 @if($question->answers[$i]->image != null)
@@ -59,12 +60,23 @@
                 </p>
                 @endif
 
-                <p class="mt-2">
+                <p class="mt-2 mb-0">
                     <a href="/profile/{{ $question->answers[$i]->user_id }}">
                         <img src="{{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
                         {{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->name }}
                     </a>
                     <span>@ {{ $question->answers[$i]->created_at }}</span>
+                </p>
+
+                <p>
+                    <span>Likes:</span>
+                    <span>{{ \App\Models\Like::where('answer_id', $question->answers[$i]->id)->count() }}</span>
+
+                    @if( \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
+                    <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">like</a>
+                    @else
+                    <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">unlike</a>
+                    @endif
                 </p>
 
                 @if($i < count($question->answers) - 1)

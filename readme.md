@@ -11,3 +11,5 @@ To run the server enter:
 `php artisan serve`.
 
 Go to `http://127.0.0.1:8000` in your browser.
+
+You may need to run `php artisan storage:link` to properly work with images.

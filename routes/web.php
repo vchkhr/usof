@@ -30,5 +30,7 @@ Route::get("/question/{question}", [App\Http\Controllers\QuestionsController::cl
 Route::post("/question", [App\Http\Controllers\QuestionsController::class, 'store']);
 
 Route::get("/answer/create", [App\Http\Controllers\AnswersController::class, 'create']);
-Route::get("/answer/{answer}", [App\Http\Controllers\AnswersController::class, 'show']);
 Route::post("/answer", [App\Http\Controllers\AnswersController::class, 'store']);
+
+Route::get("/like/create", [App\Http\Controllers\LikesController::class, 'create']);
+Route::post("/like", [App\Http\Controllers\LikesController::class, 'store']);

@@ -38,6 +38,8 @@ class QuestionsController extends Controller
 
     public function show(\App\Models\Question $question)
     {
-        return view('questions.show', compact('question'));
+        $user = auth()->user();
+        
+        return view('questions.show', compact('question', 'user'));
     }
 }
