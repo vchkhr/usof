@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Question;
 
 class QuestionsController extends Controller
 {
@@ -43,5 +45,33 @@ class QuestionsController extends Controller
         $user = auth()->user();
         
         return view('questions.show', compact('question', 'user'));
+    }
+
+    public function edit(User $user, Question $question)
+    {
+        $q = Question::find($question['id']);
+
+        if ($q->user_id !== auth()->user()->id) {
+            abort(403);
+        }
+
+        return view('questions.edit', compact('user', 'question'));
+    }
+
+    public function update(User $user, Question $question)
+    {
+        $q = Question::find($question['id']);
+
+        if ($q->user_id !== auth()->user()->id) {
+            abort(403);
+        }
+        
+        $data = request()->validate([
+            'title' => 'string',
+        ]);
+
+        Question::find($question['id'])->update($data);
+
+        return redirect("/question/{$question['id']}");
     }
 }

@@ -38,7 +38,13 @@
                     </p>
                     @endif
 
-                    <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
+                    <p>
+                        <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
+
+                        @if ($question->user_id == $user['id'])
+                        <a href="/question/{{ $question->id }}/edit" class="btn btn-success" role="button" data-bs-toggle="button">Edit Question</a>
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>
