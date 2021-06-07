@@ -53,6 +53,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="tags" class="col-md-4 col-form-label text-md-right">Tags</label>
+
+                            <div class="col-md-6">
+                                <input type="text" name="tags" class="form-control tagin" id="questionTags" value="" data-placeholder="" data-separator=",">
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -66,4 +74,9 @@
         </div>
     </div>
 </div>
+
+<script src="https://tagin.netlify.app/js/tagin.min.js"></script>
+<script>
+    tagin(document.querySelector('#questionTags'))
+</script>
 @endsection

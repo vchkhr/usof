@@ -11,7 +11,8 @@ class HomeController extends Controller
     {
         $user = \Auth::user();
         $questions = \App\Models\Question::all();
+        $users = \App\Models\User::all();
 
-        return view('home', compact('user', 'questions'));
+        return view('home', compact('user', 'questions', 'users'));
     }
 }

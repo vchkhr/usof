@@ -20,7 +20,7 @@
                     </a>
                     @endif
 
-                    <p class="mt-4">
+                    <p class="mt-4 mb-0">
                         <a href="/profile/{{ $question->user_id }}">
                             <img src="{{ $question->user->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
 
@@ -29,6 +29,14 @@
 
                         <span>@ {{ $question->created_at }}</span>
                     </p>
+
+                    @if ($question->tags != null)
+                    <p>
+                        @foreach(explode(",", $question->tags) as $tag)
+                        <a href="/tag/{{ str_replace(' ', '-', $tag) }}" class="mr-2">#{{ $tag }}</a>
+                        @endforeach
+                    </p>
+                    @endif
 
                     <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
                 </div>

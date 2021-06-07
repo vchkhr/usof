@@ -34,3 +34,5 @@ Route::post("/answer", [App\Http\Controllers\AnswersController::class, 'store'])
 
 Route::get("/like/create", [App\Http\Controllers\LikesController::class, 'create']);
 Route::post("/like", [App\Http\Controllers\LikesController::class, 'store']);
+
+Route::get("/tag/{tag}", [App\Http\Controllers\TagsController::class, 'show']);

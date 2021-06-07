@@ -35,7 +35,7 @@
                                     @endcan
 
                                     @cannot('update', $user->profile)
-                                    <a href="/profile/{{ $user->id }}/subscribe" class="btn btn-success" role="button" data-bs-toggle="button">Subscribe</a>
+                                    <!-- <a href="/profile/{{ $user->id }}/subscribe" class="btn btn-success" role="button" data-bs-toggle="button">Subscribe</a> -->
                                     @endcannot
                                 </h3>
 
@@ -51,7 +51,7 @@
                     </div>
 
                     <div>
-                        <h4>Questions</h4>
+                        <h3>Questions</h4>
 
                         @if(count($user->questions) == 0)
                         <p>No questions yet</p>

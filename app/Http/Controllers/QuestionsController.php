@@ -18,6 +18,7 @@ class QuestionsController extends Controller
             'title' => 'required',
             'description' => 'nullable',
             'image' => 'image|nullable',
+            'tags' => 'nullable',
         ]);
 
         if (array_key_exists('image', $data) == true) {
@@ -30,7 +31,8 @@ class QuestionsController extends Controller
         auth()->user()->questions()->create([
             'title' => $data['title'],
             'description' => $data['description'],
-            'image' => $imagePath
+            'image' => $imagePath,
+            'tags' => $data['tags'],
         ]);
 
         return redirect('/home/');

@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://tagin.netlify.app/css/tagin.min.css">
 </head>
 
 <body>
