@@ -14,7 +14,7 @@ class Profile extends Model
     public function profileImage()
     {
         if ($this->profile_photo == null) {
-            return '/storage/profile/profile.png';
+            return 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/480px-Circle-icons-profile.svg.png';
         }
 
         return '/storage/' . $this->profile_photo;
