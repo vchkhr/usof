@@ -29,6 +29,10 @@ class QuestionsController extends Controller
             $imagePath = null;
         }
 
+        if ($data['tags'] != null) {
+            $data['tags'] = str_replace(" ", "-", $data['tags']);
+        }
+
         auth()->user()->questions()->create([
             'title' => $data['title'],
             'description' => $data['description'],
@@ -77,6 +81,10 @@ class QuestionsController extends Controller
         }
         else {
             $data['image'] = null;
+        }
+
+        if ($data['tags'] != null) {
+            $data['tags'] = str_replace(" ", "-", $data['tags']);
         }
 
         Question::find($question['id'])->update($data);

@@ -58,9 +58,23 @@
                             <label for="profile_photo" class="col-md-4 col-form-label text-md-right">Profile Photo</label>
 
                             <div class="col-md-6">
-                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ old('profile_photo') }}" autocomplete="profile_photo">
+                                <input id="profile_photo" type="file" class="form-control-file @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ old('profile_photo') }}">
 
                                 @error('profile_photo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="deletePhoto" class="col-md-4 col-form-label text-md-right">Delete Profile Photo</label>
+
+                            <div class="col-md-6">
+                                <input id="deletePhoto" type="checkbox" class="@error('deletePhoto') is-invalid @enderror" name="deletePhoto" value="" style="margin-top: 12px;">
+
+                                @error('deletePhoto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -26,6 +26,20 @@
                     </div>
 
                     <div>
+                        <h3>Tags</h4>
+
+                            @if(count($allTags) == 0)
+                            <p>No tags yet</p>
+                            @endif
+
+                            <ul>
+                                @for($i = count($allTags) - 1; $i >= 0; $i--)
+                                <li><a href="/tag/{{ $allTags[$i] }}">{{ $allTags[$i] }}</a></li>
+                                @endfor
+                            </ul>
+                    </div>
+
+                    <div>
                         <h3>Users</h4>
 
                             @if(count($users) == 0)

@@ -26,13 +26,19 @@ class ProfilesController extends Controller
             'description' => 'nullable',
             'url' => 'url|nullable',
             'profile_photo' => 'image|nullable',
+            'deletePhoto' => 'nullable',
         ]);
 
-        if (array_key_exists('profile_photo', $data) == true) {
-            $data['profile_photo'] = request('profile_photo')->store('uploads', 'public');
+        if (array_key_exists('deletePhoto', $data) == true) {
+            $data['profile_photo'] = null;
         }
         else {
-            $data['profile_photo'] = auth()->user()->profile->profile_photo;
+            if (array_key_exists('profile_photo', $data) == true) {
+                $data['profile_photo'] = request('profile_photo')->store('uploads', 'public');
+            }
+            else {
+                $data['profile_photo'] = auth()->user()->profile->profile_photo;
+            }
         }
 
         auth()->user()->profile->update($data);
