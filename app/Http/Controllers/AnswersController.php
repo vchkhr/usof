@@ -40,68 +40,50 @@ class AnswersController extends Controller
         return redirect('/question/' . $data['question_id']);
     }
 
-    // public function edit(User $user, Question $question)
-    // {
-    //     $q = Question::find($question['id']);
+    public function edit(User $user, Answer $answer)
+    {
+        $a = Answer::find($answer['id']);
 
-    //     if ($q->user_id !== auth()->user()->id) {
-    //         abort(403);
-    //     }
+        if ($a->user_id !== auth()->user()->id) {
+            abort(403);
+        }
 
-    //     if (request()->query('markAsSolved') != null) {
-    //         $this->update($user, $question);
+        return view('answers.edit', compact('user', 'answer'));
+    }
 
-    //         return redirect("/question/{$question['id']}");
-    //     }
+    public function update(User $user, Answer $answer)
+    {
+        $a = Answer::find($answer['id']);
+        $question = $a->question_id;
 
-    //     return view('questions.edit', compact('user', 'question'));
-    // }
+        if ($a->user_id !== auth()->user()->id) {
+            abort(403);
+        }
 
-    // public function update(User $user, Question $question)
-    // {
-    //     $q = Question::find($question['id']);
+        $data = request()->validate([
+            'description' => 'string',
+            'image' => 'image|nullable',
+            'deleteImage' => 'nullable'
+        ]);
 
-    //     if ($q->user_id !== auth()->user()->id) {
-    //         abort(403);
-    //     }
+        if (array_key_exists('deleteImage', $data) == true) {
+            $data['image'] = null;
 
-    //     if (request()->query('markAsSolved') != null) {
-    //         $q->solved = request()->query('markAsSolved') == "true" ? 1 : 0;
-    //         $q->save();
+            unset($data['deleteImage']);
+        }
+        else {
+            if (array_key_exists('image', $data) == true) {
+                $data['image'] = request('image')->store('uploads', 'public');
+            }
+            else {
+                $data['image'] = $a->image;
+            }
+        }
 
-    //         return;
-    //     }
-        
-    //     $data = request()->validate([
-    //         'title' => 'required',
-    //         'description' => 'nullable',
-    //         'image' => 'image|nullable',
-    //         'tags' => 'nullable',
-    //         'deleteImage' => 'nullable'
-    //     ]);
+        $a->update($data);
 
-    //     if (array_key_exists('deleteImage', $data) == true) {
-    //         $data['image'] = null;
-
-    //         unset($data['deleteImage']);
-    //     }
-    //     else {
-    //         if (array_key_exists('image', $data) == true) {
-    //             $data['image'] = request('image')->store('uploads', 'public');
-    //         }
-    //         else {
-    //             $data['image'] = $q->image;
-    //         }
-    //     }
-
-    //     if ($data['tags'] != null) {
-    //         $data['tags'] = str_replace(" ", "-", $data['tags']);
-    //     }
-
-    //     $q->update($data);
-
-    //     return redirect("/question/{$question['id']}");
-    // }
+        return redirect('/question/' . $question);
+    }
 
     public function destroy($id)
     {
