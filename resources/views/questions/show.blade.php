@@ -71,6 +71,68 @@
     </div>
 </div>
 
+@if($question->correct_answer_id != null)
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Correct Answer</div>
+
+                <div class="card-body">
+                    <a name="answer-correct"></a>
+
+                    <p>{{ $answerCorrect->description }}</p>
+
+                    @if($answerCorrect->image != null)
+                    <p>
+                        <a href="/storage/{{ $answerCorrect->image }}" target="_blank">
+                            <img src="/storage/{{ $answerCorrect->image }}" style="max-width: 100px; border-radius: 5px;">
+                        </a>
+                    </p>
+                    @endif
+
+                    <p class="mt-2 mb-0">
+                        <a href="/profile/{{ $answerCorrect->user_id }}">
+                            <img src="{{ \App\Models\User::where('id', $answerCorrect->user_id)->get()[0]->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
+                            {{ \App\Models\User::where('id', $answerCorrect->user_id)->get()[0]->name }}
+                        </a>
+                        <span>@ {{ $answerCorrect->created_at }}</span>
+                    </p>
+
+                    <p>
+                        <span>Likes:</span>
+                        <span>{{ \App\Models\Like::where('answer_id', $answerCorrect->id)->count() }}</span>
+
+                        @if( \App\Models\Like::where([['answer_id', $answerCorrect->id], ['user_id', $user->id]])->count() == 0 )
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}">like</a>
+                        @else
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}">unlike</a>
+                        @endif
+                    </p>
+
+                    @if ($answerCorrect->user_id == $user->id)
+                    <a href="/answer/{{ $answerCorrect->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
+                    @endif
+
+                    @if ($question->user_id == $user->id)
+                    <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $answerCorrect->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
+                    @endif
+
+                    @if ($answerCorrect->user_id == $user->id)
+                    <form style="display: inline;" method="POST" action="{{ route('answer.destroy', ['id' => $answerCorrect->id]) }}">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger">Delete Answer</button>
+                    </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -111,10 +173,18 @@
                         @else
                         <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">unlike</a>
                         @endif
+                        
+                        @if($answerCorrect->id == $question->answers[$i]->id)
+                        <span><br>Correct answer</span>
+                        @endif
                     </p>
 
                     @if ($question->answers[$i]->user_id == $user->id)
                     <a href="/answer/{{ $question->answers[$i]->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
+                    @endif
+
+                    @if ($question->user_id == $user->id)
+                    <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $question->answers[$i]->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
                     @endif
 
                     @if ($question->answers[$i]->user_id == $user->id)

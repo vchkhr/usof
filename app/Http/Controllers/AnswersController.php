@@ -82,7 +82,7 @@ class AnswersController extends Controller
 
         $a->update($data);
 
-        return redirect('/question/' . $question);
+        return redirect('/question/' . $question  . "#answer-" . $a->id);
     }
 
     public function destroy($id)

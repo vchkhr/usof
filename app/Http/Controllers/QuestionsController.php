@@ -43,11 +43,12 @@ class QuestionsController extends Controller
         return redirect('/question/' . Question::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->first()->id);
     }
 
-    public function show(\App\Models\Question $question)
+    public function show(Question $question)
     {
         $user = auth()->user();
+        $answerCorrect = $question->answers->where('id', $question->correct_answer_id)->first();
         
-        return view('questions.show', compact('question', 'user'));
+        return view('questions.show', compact('question', 'user', 'answerCorrect'));
     }
 
     public function edit(User $user, Question $question)
@@ -63,6 +64,11 @@ class QuestionsController extends Controller
 
             return redirect("/question/{$question['id']}");
         }
+        if (request()->query('correctAnswerId') != null) {
+            $this->update($user, $question);
+
+            return redirect("/question/{$question['id']}#answer-" . request()->query('correctAnswerId'));
+        }
 
         return view('questions.edit', compact('user', 'question'));
     }
@@ -77,6 +83,12 @@ class QuestionsController extends Controller
 
         if (request()->query('markAsSolved') != null) {
             $q->solved = request()->query('markAsSolved') == "true" ? 1 : 0;
+            $q->save();
+
+            return;
+        }
+        if (request()->query('correctAnswerId') != null) {
+            $q->correct_answer_id = request()->query('correctAnswerId');
             $q->save();
 
             return;
