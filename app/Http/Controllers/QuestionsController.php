@@ -74,20 +74,28 @@ class QuestionsController extends Controller
             'description' => 'nullable',
             'image' => 'image|nullable',
             'tags' => 'nullable',
+            'deleteImage' => 'nullable'
         ]);
 
-        if (array_key_exists('image', $data) == true) {
-            $data['image'] = request('image')->store('uploads', 'public');
+        if (array_key_exists('deleteImage', $data) == true) {
+            $data['image'] = null;
+
+            unset($data['deleteImage']);
         }
         else {
-            $data['image'] = null;
+            if (array_key_exists('image', $data) == true) {
+                $data['image'] = request('image')->store('uploads', 'public');
+            }
+            else {
+                $data['image'] = $q->image;
+            }
         }
 
         if ($data['tags'] != null) {
             $data['tags'] = str_replace(" ", "-", $data['tags']);
         }
 
-        Question::find($question['id'])->update($data);
+        $q->update($data);
 
         return redirect("/question/{$question['id']}");
     }
