@@ -43,19 +43,24 @@
                     </p>
                     @endif
 
-                    <p>
-                        <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
+                    <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
 
-                        @if ($question->user_id == $user['id'])
-                        <a href="/question/{{ $question->id }}/edit" class="btn btn-success" role="button" data-bs-toggle="button">Edit Question</a>
+                    @if ($question->user_id == $user['id'])
+                    <a href="/question/{{ $question->id }}/edit" class="btn btn-success" role="button" data-bs-toggle="button">Edit Question</a>
 
-                        @if ($question->solved == 0)
-                        <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
-                        @else
-                        <a href="/question/{{ $question->id }}/edit?markAsSolved=false" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Unsolved</a>
-                        @endif
-                        @endif
-                    </p>
+                    @if ($question->solved == 0)
+                    <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
+                    @else
+                    <a href="/question/{{ $question->id }}/edit?markAsSolved=false" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Unsolved</a>
+                    @endif
+
+                    <form style="display: inline;" method="POST" action="{{ route('question.destroy', ['id' => $question->id]) }}">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger">Delete Question</button>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>

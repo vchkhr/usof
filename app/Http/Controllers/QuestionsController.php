@@ -112,4 +112,13 @@ class QuestionsController extends Controller
 
         return redirect("/question/{$question['id']}");
     }
+
+    public function destroy($id)
+    {
+        $question = Question::find($id);
+
+        $question->delete();
+
+        return redirect()->route('home');
+    }
 }

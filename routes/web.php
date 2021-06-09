@@ -29,6 +29,7 @@ Route::get("/question/create", [App\Http\Controllers\QuestionsController::class,
 Route::get("/question/{question}", [App\Http\Controllers\QuestionsController::class, 'show']);
 Route::post("/question", [App\Http\Controllers\QuestionsController::class, 'store']);
 Route::get("/question/{question}/edit", [App\Http\Controllers\QuestionsController::class, 'edit'])->name('edit');
+Route::delete("/question/{id}/delete", [App\Http\Controllers\QuestionsController::class, 'destroy'])->name('question.destroy');
 Route::patch('/question/{question}', [App\Http\Controllers\QuestionsController::class, 'update'])->name('question.update');
 
 Route::get("/answer/create", [App\Http\Controllers\AnswersController::class, 'create']);
