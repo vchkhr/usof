@@ -43,11 +43,15 @@
                     </p>
                     @endif
 
+                    @if ($question->solved == 0)
                     <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
 
                     @if ($question->user_id == $user['id'])
                     <a href="/question/{{ $question->id }}/edit" class="btn btn-success" role="button" data-bs-toggle="button">Edit Question</a>
+                    @endif
+                    @endif
 
+                    @if ($question->user_id == $user['id'])
                     @if ($question->solved == 0)
                     <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
                     @else
