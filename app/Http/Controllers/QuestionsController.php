@@ -8,13 +8,12 @@ use App\Models\Question;
 
 class QuestionsController extends Controller
 {
-
     public function create()
     {
         return view('questions/create');
     }
 
-    public function store()
+    public function store(Question $question)
     {
         $data = request()->validate([
             'title' => 'required',
@@ -37,7 +36,7 @@ class QuestionsController extends Controller
             'tags' => $data['tags'],
         ]);
 
-        return redirect('/home/');
+        return redirect('/question/' . Question::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->first()->id);
     }
 
     public function show(\App\Models\Question $question)
@@ -67,8 +66,18 @@ class QuestionsController extends Controller
         }
         
         $data = request()->validate([
-            'title' => 'string',
+            'title' => 'required',
+            'description' => 'nullable',
+            'image' => 'image|nullable',
+            'tags' => 'nullable',
         ]);
+
+        if (array_key_exists('image', $data) == true) {
+            $data['image'] = request('image')->store('uploads', 'public');
+        }
+        else {
+            $data['image'] = null;
+        }
 
         Question::find($question['id'])->update($data);
 
