@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProfilesController extends Controller
 {
@@ -12,11 +14,12 @@ class ProfilesController extends Controller
         return view('profiles.index', compact('user'));
     }
 
-    public function edit(User $user)
+    public function edit(User $user, Profile $profile)
     {
         $this->authorize("update", $user->profile);
+        $profile = auth()->user()->profile;
 
-        return view('profiles.edit', compact('user'));
+        return view('profiles.edit', compact('user', 'profile'));
     }
 
     public function update(User $user)
@@ -44,5 +47,20 @@ class ProfilesController extends Controller
         auth()->user()->profile->update($data);
 
         return redirect("/profile/{$user->id}");
+    }
+
+    public function destroy()
+    {
+        if (request()->username != auth()->user()->name) {
+            return redirect('/profile/' . auth()->user()->id . "/edit");
+        }
+
+        DB::table('profiles')->where('user_id', '=', auth()->user()->id)->delete();
+        DB::table('questions')->where('user_id', '=', auth()->user()->id)->delete();
+        DB::table('answers')->where('user_id', '=', auth()->user()->id)->delete();
+        DB::table('likes')->where('user_id', '=', auth()->user()->id)->delete();
+        DB::table('users')->where('id', '=', auth()->user()->id)->delete();
+
+        return redirect()->route('login');
     }
 }

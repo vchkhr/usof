@@ -82,7 +82,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     Update Profile
@@ -90,6 +90,39 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="alert alert-danger mt-5" role="alert">
+                        <strong>Danger Zone!</strong>
+
+                        <p>To delete your profile enter <strong>{{ $user->name }}</strong> and press "Delete Profile". This will delete all your data, including profile's data, questions, answers and their materials, such as images.</p>
+
+                        <form method="POST" action="{{ route('profile.destroy', ['id' => $profile->id]) }}">
+                        @csrf
+                        @method('DELETE')
+
+                            <div class="form-group row">
+                                <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+
+                                <div class="col-md-6">
+                                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror " name="username">
+
+                                    @error('username')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-danger">
+                                        Delete Profile
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

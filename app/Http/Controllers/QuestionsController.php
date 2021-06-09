@@ -20,6 +20,7 @@ class QuestionsController extends Controller
             'description' => 'nullable',
             'image' => 'image|nullable',
             'tags' => 'nullable',
+            'solved' => 'nullable',
         ]);
 
         if (array_key_exists('image', $data) == true) {
@@ -38,6 +39,7 @@ class QuestionsController extends Controller
             'description' => $data['description'],
             'image' => $imagePath,
             'tags' => $data['tags'],
+            'solved' => 0
         ]);
 
         return redirect('/question/' . Question::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->first()->id);
