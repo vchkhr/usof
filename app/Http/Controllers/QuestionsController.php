@@ -58,6 +58,12 @@ class QuestionsController extends Controller
             abort(403);
         }
 
+        if (request()->query('markAsSolved') != null) {
+            $this->update($user, $question);
+
+            return redirect("/question/{$question['id']}");
+        }
+
         return view('questions.edit', compact('user', 'question'));
     }
 
@@ -67,6 +73,13 @@ class QuestionsController extends Controller
 
         if ($q->user_id !== auth()->user()->id) {
             abort(403);
+        }
+
+        if (request()->query('markAsSolved') != null) {
+            $q->solved = request()->query('markAsSolved') == "true" ? 1 : 0;
+            $q->save();
+
+            return;
         }
         
         $data = request()->validate([

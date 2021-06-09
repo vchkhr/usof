@@ -20,7 +20,13 @@
 
                             <ul>
                                 @for($i = count($questions) - 1; $i >= 0; $i--)
-                                <li><a href="/question/{{ $questions[$i]->id }}">{{ $questions[$i]->title }}</a> @ {{ $questions[$i]->created_at }}</li>
+                                <li>
+                                    <a href="/question/{{ $questions[$i]->id }}">{{ $questions[$i]->title }}</a>
+                                    <span>@ {{ $questions[$i]->created_at }}</span>
+                                    @if($questions[$i]->solved == 1)
+                                    <span class="text-muted">(solved)</span>
+                                    @endif
+                                </li>
                                 @endfor
                             </ul>
                     </div>
