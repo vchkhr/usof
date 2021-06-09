@@ -44,10 +44,10 @@
                     @endif
 
                     @if ($question->solved == 0)
-                    <a href="/answer/create?question={{ $question->id }}" class="btn btn-primary" role="button" data-bs-toggle="button">Answer Question</a>
+                    <a href="/answer/create?question={{ $question->id }}" class="btn btn-success" role="button" data-bs-toggle="button">Answer Question</a>
 
                     @if ($question->user_id == $user['id'])
-                    <a href="/question/{{ $question->id }}/edit" class="btn btn-success" role="button" data-bs-toggle="button">Edit Question</a>
+                    <a href="/question/{{ $question->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Question</a>
                     @endif
                     @endif
 
@@ -83,40 +83,53 @@
                     @endif
 
                     @for($i = 0; $i < count($question->answers); $i++)
-                        <a name="answer-{{ $question->answers[$i]->id }}"></a>
-                        <p class="@if ($i > 0) mt-3 @endif">{{ $question->answers[$i]->description }}</p>
+                    <a name="answer-{{ $question->answers[$i]->id }}"></a>
+                    <p class="@if ($i > 0) mt-3 @endif">{{ $question->answers[$i]->description }}</p>
 
-                        @if($question->answers[$i]->image != null)
-                        <p>
-                            <a href="/storage/{{ $question->answers[$i]->image }}" target="_blank">
-                                <img src="/storage/{{ $question->answers[$i]->image }}" style="max-width: 100px; border-radius: 5px;">
-                            </a>
-                        </p>
+                    @if($question->answers[$i]->image != null)
+                    <p>
+                        <a href="/storage/{{ $question->answers[$i]->image }}" target="_blank">
+                            <img src="/storage/{{ $question->answers[$i]->image }}" style="max-width: 100px; border-radius: 5px;">
+                        </a>
+                    </p>
+                    @endif
+
+                    <p class="mt-2 mb-0">
+                        <a href="/profile/{{ $question->answers[$i]->user_id }}">
+                            <img src="{{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
+                            {{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->name }}
+                        </a>
+                        <span>@ {{ $question->answers[$i]->created_at }}</span>
+                    </p>
+
+                    <p>
+                        <span>Likes:</span>
+                        <span>{{ \App\Models\Like::where('answer_id', $question->answers[$i]->id)->count() }}</span>
+
+                        @if( \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">like</a>
+                        @else
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">unlike</a>
                         @endif
+                    </p>
 
-                        <p class="mt-2 mb-0">
-                            <a href="/profile/{{ $question->answers[$i]->user_id }}">
-                                <img src="{{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
-                                {{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->name }}
-                            </a>
-                            <span>@ {{ $question->answers[$i]->created_at }}</span>
-                        </p>
+                    @if ($question->answers[$i]->user_id == $user->id)
+                    <a href="/answer/{{ $question->answers[$i]->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
+                    @endif
 
-                        <p>
-                            <span>Likes:</span>
-                            <span>{{ \App\Models\Like::where('answer_id', $question->answers[$i]->id)->count() }}</span>
+                    @if ($question->answers[$i]->user_id == $user->id)
+                    <form style="display: inline;" method="POST" action="{{ route('answer.destroy', ['id' => $question->answers[$i]->id]) }}">
+                        @csrf
+                        @method('DELETE')
 
-                            @if( \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">like</a>
-                            @else
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">unlike</a>
-                            @endif
-                        </p>
+                        <button type="submit" class="btn btn-danger">Delete Answer</button>
+                    </form>
+                    @endif
 
-                        @if($i < count($question->answers) - 1)
-                            <hr class="mt-4">
-                            @endif
-                            @endfor
+                    @if($i < count($question->answers) - 1)
+                    <hr class="mt-4">
+                    @endif
+                    @endfor
                 </div>
             </div>
         </div>

@@ -34,6 +34,8 @@ Route::patch('/question/{question}', [App\Http\Controllers\QuestionsController::
 
 Route::get("/answer/create", [App\Http\Controllers\AnswersController::class, 'create']);
 Route::post("/answer", [App\Http\Controllers\AnswersController::class, 'store']);
+Route::get("/answer/{answer}/edit", [App\Http\Controllers\AnswersController::class, 'edit'])->name('edit');
+Route::delete("/answer/{id}/delete", [App\Http\Controllers\AnswersController::class, 'destroy'])->name('answer.destroy');
 
 Route::get("/like/create", [App\Http\Controllers\LikesController::class, 'create']);
 Route::post("/like", [App\Http\Controllers\LikesController::class, 'store']);
