@@ -168,10 +168,12 @@
                         <span>Likes:</span>
                         <span>{{ \App\Models\Like::where('answer_id', $question->answers[$i]->id)->count() }}</span>
 
-                        @if( isset($user) && \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
-                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">like</a>
-                        @elseif(isset($user))
-                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">unlike</a>
+                        @if(isset($user) && $user->id != $question->user_id)
+                        @if( \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1&recipient_id={{ $question->user_id }}">like</a>
+                        @else
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1&recipient_id={{ $question->user_id }}">unlike</a>
+                        @endif
                         @endif
                         
                         @if(\App\Models\Answer::where('id', $question->correct_answer_id)->count() > 0) && $answerCorrect->id == $question->answers[$i]->id)
