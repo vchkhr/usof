@@ -102,12 +102,6 @@
                     <p>
                         <span>Likes:</span>
                         <span>{{ \App\Models\Like::where('answer_id', $answerCorrect->id)->count() }}</span>
-
-                        @if( isset($user) && \App\Models\Like::where([['answer_id', $answerCorrect->id], ['user_id', $user->id]])->count() == 0 )
-                        <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}">like</a>
-                        @else
-                        <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}">unlike</a>
-                        @endif
                     </p>
 
                     @if (isset($user) && $answerCorrect->user_id == $user->id)
@@ -166,13 +160,20 @@
 
                     <p>
                         <span>Likes:</span>
-                        <span>{{ \App\Models\Like::where('answer_id', $question->answers[$i]->id)->count() }}</span>
+                        <span>{{ \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['is_like', 1]])->count() - \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['is_like', 0]])->count() }}</span>
 
                         @if(isset($user) && $user->id != $question->user_id)
-                        @if( \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
+                        @if(\App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0)
                         <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1&recipient_id={{ $question->user_id }}">like</a>
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0&recipient_id={{ $question->user_id }}">dislike</a>
                         @else
+                        @if(\App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->get()[0]->is_like == 1)
                         <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1&recipient_id={{ $question->user_id }}">unlike</a>
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0&recipient_id={{ $question->user_id }}">dislike</a>
+                        @else
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1&recipient_id={{ $question->user_id }}">like</a>
+                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0&recipient_id={{ $question->user_id }}">undislike</a>
+                        @endif
                         @endif
                         @endif
                         

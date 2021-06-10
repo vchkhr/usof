@@ -35,17 +35,48 @@ class LikesController extends Controller
             return;
         }
 
-        if ($data['is_like'] == 1) {
-            if (\App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id], ['is_like', $data['is_like']]])->count() == 0) {
-                auth()->user()->likes()->create([
-                    'answer_id' => $data['answer'],
-                    'is_like' => $data['is_like'],
-                    'recipient_id' => $data['recipient_id'],
-                ]);
+        if (\App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id]])->count() == 0) {
+            auth()->user()->likes()->create([
+                'answer_id' => $data['answer'],
+                'is_like' => $data['is_like'],
+                'recipient_id' => $data['recipient_id'],
+            ]);
+        } else {
+            if (\App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id], ['is_like', 1]])->count() == 1) {
+                \App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id]])->delete();
+
+                if ($data['is_like'] == 0) {
+                    auth()->user()->likes()->create([
+                        'answer_id' => $data['answer'],
+                        'is_like' => $data['is_like'],
+                        'recipient_id' => $data['recipient_id'],
+                    ]);
+                }
+            } else {
+                \App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id]])->delete();
+
+                if ($data['is_like'] == 1) {
+                    auth()->user()->likes()->create([
+                        'answer_id' => $data['answer'],
+                        'is_like' => $data['is_like'],
+                        'recipient_id' => $data['recipient_id'],
+                    ]);
+                }
             }
-            else {
-                \App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id], ['is_like', $data['is_like']]])->delete();
-            }
+        }
+
+        return;
+
+        \App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id]])->delete();
+
+        if (\App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id]])->count() == 0) {
+            auth()->user()->likes()->create([
+                'answer_id' => $data['answer'],
+                'is_like' => $data['is_like'],
+                'recipient_id' => $data['recipient_id'],
+            ]);
+        } else {
+            \App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id], ['is_like', $data['is_like']]])->delete();
         }
     }
 }
