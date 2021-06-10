@@ -71,7 +71,7 @@
     </div>
 </div>
 
-@if($question->correct_answer_id != null)
+@if($question->correct_answer_id != null && \App\Models\Answer::where('id', $question->correct_answer_id)->count() > 0)
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -170,11 +170,11 @@
 
                         @if( isset($user) && \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
                         <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">like</a>
-                        @elif(isset($user))
+                        @elseif(isset($user))
                         <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">unlike</a>
                         @endif
                         
-                        @if($answerCorrect->id == $question->answers[$i]->id)
+                        @if(\App\Models\Answer::where('id', $question->correct_answer_id)->count() > 0) && $answerCorrect->id == $question->answers[$i]->id)
                         <span><br>Correct answer</span>
                         @endif
                     </p>
