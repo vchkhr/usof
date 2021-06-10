@@ -43,15 +43,15 @@
                     </p>
                     @endif
 
-                    @if ($question->solved == 0)
+                    @if (isset($user) && $question->solved == 0)
                     <a href="/answer/create?question={{ $question->id }}" class="btn btn-success" role="button" data-bs-toggle="button">Answer Question</a>
 
-                    @if ($question->user_id == $user['id'])
+                    @if (isset($user) && $question->user_id == $user['id'])
                     <a href="/question/{{ $question->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Question</a>
                     @endif
                     @endif
 
-                    @if ($question->user_id == $user['id'])
+                    @if (isset($user) && $question->user_id == $user['id'])
                     @if ($question->solved == 0)
                     <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
                     @else
@@ -103,22 +103,22 @@
                         <span>Likes:</span>
                         <span>{{ \App\Models\Like::where('answer_id', $answerCorrect->id)->count() }}</span>
 
-                        @if( \App\Models\Like::where([['answer_id', $answerCorrect->id], ['user_id', $user->id]])->count() == 0 )
+                        @if( isset($user) && \App\Models\Like::where([['answer_id', $answerCorrect->id], ['user_id', $user->id]])->count() == 0 )
                         <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}">like</a>
                         @else
                         <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}">unlike</a>
                         @endif
                     </p>
 
-                    @if ($answerCorrect->user_id == $user->id)
+                    @if (isset($user) && $answerCorrect->user_id == $user->id)
                     <a href="/answer/{{ $answerCorrect->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
                     @endif
 
-                    @if ($question->user_id == $user->id)
+                    @if (isset($user) && $question->user_id == $user->id)
                     <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $answerCorrect->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
                     @endif
 
-                    @if ($answerCorrect->user_id == $user->id)
+                    @if (isset($user) && $answerCorrect->user_id == $user->id)
                     <form style="display: inline;" method="POST" action="{{ route('answer.destroy', ['id' => $answerCorrect->id]) }}">
                         @csrf
                         @method('DELETE')
@@ -168,9 +168,9 @@
                         <span>Likes:</span>
                         <span>{{ \App\Models\Like::where('answer_id', $question->answers[$i]->id)->count() }}</span>
 
-                        @if( \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
+                        @if( isset($user) && \App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0 )
                         <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">like</a>
-                        @else
+                        @elif(isset($user))
                         <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}">unlike</a>
                         @endif
                         
@@ -179,15 +179,15 @@
                         @endif
                     </p>
 
-                    @if ($question->answers[$i]->user_id == $user->id)
+                    @if (isset($user) && $question->answers[$i]->user_id == $user->id)
                     <a href="/answer/{{ $question->answers[$i]->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
                     @endif
 
-                    @if ($question->user_id == $user->id)
+                    @if (isset($user) && $question->user_id == $user->id)
                     <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $question->answers[$i]->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
                     @endif
 
-                    @if ($question->answers[$i]->user_id == $user->id)
+                    @if (isset($user) && $question->answers[$i]->user_id == $user->id)
                     <form style="display: inline;" method="POST" action="{{ route('answer.destroy', ['id' => $question->answers[$i]->id]) }}">
                         @csrf
                         @method('DELETE')
