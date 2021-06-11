@@ -5,3 +5,6 @@
 - Restore Password
 
 - Pagination
+
+- Delete likes and answers on question delete
+- Delete likes on answer delete

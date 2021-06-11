@@ -12,22 +12,22 @@
                     </div>
 
                     <div>
-                        <h3>Questions</h4>
+                        <h3>Top 10 Questions</h4>
 
                             @if(count($questions) == 0)
                             <p>No questions yet</p>
                             @endif
 
                             <ul>
-                                @for($i = count($questions) - 1; $i >= 0; $i--)
+                                @for($i = 0; $i < count($questionsRating) && $i < 10; $i++)
                                 <li>
-                                    <a href="/question/{{ $questions[$i]->id }}">{{ $questions[$i]->title }}</a>
-                                    <span>@ {{ $questions[$i]->created_at }}</span>
+                                    <a href="/question/{{ $questionsRating[$i]['id'] }}">{{ $questionsRating[$i]['title'] }}</a>
+                                    <span>@ {{ $questionsRating[$i]['created_at'] }}</span>
 
                                     <span class="text-muted">
-                                        <span>rating: {{ \App\Models\Like::where('question_id', $questions[$i]->id)->count() }}</span>
+                                        <span>rating: {{ \App\Models\Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 1]])->count() - \App\Models\Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 0]])->count() }}</span>
 
-                                        @if($questions[$i]->solved == 1)
+                                        @if($questionsRating[$i]['solved'] == 1)
                                         <span>| solved</span>
                                         @endif
                                     </span>
