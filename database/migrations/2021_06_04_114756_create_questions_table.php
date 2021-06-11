@@ -15,6 +15,9 @@ class CreateQuestionsTable extends Migration
                 $table->unsignedBigInteger('user_id');
                 $table->string('title');
                 $table->text('description')->nullable();
+                $table->string('tags')->nullable();
+                $table->integer('solved')->default(0);
+                $table->unsignedBigInteger('correct_answer_id')->nullable();
                 $table->string('image')->nullable();
 
                 $table->timestamps();

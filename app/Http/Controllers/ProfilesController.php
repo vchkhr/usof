@@ -11,6 +11,12 @@ class ProfilesController extends Controller
 {
     public function index(User $user)
     {
+        if ($user->profile == null) {
+            Profile::create(['user_id' => $user->id]);
+
+            return redirect('/home');
+        }
+
         return view('profiles.index', compact('user'));
     }
 
