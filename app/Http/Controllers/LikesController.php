@@ -67,7 +67,7 @@ class LikesController extends Controller
             }
         }
         else {
-            if (auth()->user()->id == DB::table('questions')->where('id', $data['questions'])->first()->user_id) {
+            if (auth()->user()->id == DB::table('questions')->where('id', $data['question'])->first()->user_id) {
                 return;
             }
 
