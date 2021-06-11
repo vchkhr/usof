@@ -15,6 +15,8 @@ class QuestionSeeder extends Seeder
             'description' => 'So I am trying to compile TensorFlow from the source (using a clone from their git repo from 2019-01-31). I installed Bazel from their shell script (https://github.com/bazelbuild/bazel/releases/download/0.21.0/bazel-0.21.0-installer-linux-x86_64.sh).',
             'tags' => 'python,tensorflow,compilation,bazel',
             'user_id' => 1,
+            'solved' => 1,
+            'correct_answer_id' => 1,
             'created_at' => '2000-01-01 00:00:01',
             'updated_at' => '2000-01-01 00:00:01'
         ]);

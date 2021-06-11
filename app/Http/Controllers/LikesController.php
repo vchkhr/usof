@@ -16,7 +16,6 @@ class LikesController extends Controller
             'answer' => '',
             'question' => 'required',
             'is_like' => 'required',
-            'recipient_id' => 'required',
         ]);
 
         if (array_key_exists('answer', $data) == true) {
@@ -33,19 +32,17 @@ class LikesController extends Controller
             'answer' => '',
             'question' => 'required',
             'is_like' => 'required',
-            'recipient_id' => 'required',
         ]);
 
-        if (auth()->user()->id == $data['recipient_id']) {
-            return;
-        }
-
         if (array_key_exists('answer', $data) == true) {
+            if (auth()->user()->id == DB::table('answers')->where('id', $data['answer'])->first()->user_id) {
+                return;
+            }
+
             if (\App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id]])->count() == 0) {
                 auth()->user()->likes()->create([
                     'answer_id' => $data['answer'],
                     'is_like' => $data['is_like'],
-                    'recipient_id' => $data['recipient_id'],
                 ]);
             } else {
                 if (\App\Models\Like::where([['answer_id', $data['answer']], ['user_id', auth()->user()->id], ['is_like', 1]])->count() == 1) {
@@ -55,7 +52,6 @@ class LikesController extends Controller
                         auth()->user()->likes()->create([
                             'answer_id' => $data['answer'],
                             'is_like' => $data['is_like'],
-                            'recipient_id' => $data['recipient_id'],
                         ]);
                     }
                 } else {
@@ -65,18 +61,20 @@ class LikesController extends Controller
                         auth()->user()->likes()->create([
                             'answer_id' => $data['answer'],
                             'is_like' => $data['is_like'],
-                            'recipient_id' => $data['recipient_id'],
                         ]);
                     }
                 }
             }
         }
         else {
+            if (auth()->user()->id == DB::table('questions')->where('id', $data['questions'])->first()->user_id) {
+                return;
+            }
+
             if (\App\Models\Like::where([['question_id', $data['question']], ['user_id', auth()->user()->id]])->count() == 0) {
                 auth()->user()->likes()->create([
                     'question_id' => $data['question'],
                     'is_like' => $data['is_like'],
-                    'recipient_id' => $data['recipient_id'],
                 ]);
             } else {
                 if (\App\Models\Like::where([['question_id', $data['question']], ['user_id', auth()->user()->id], ['is_like', 1]])->count() == 1) {
@@ -86,7 +84,6 @@ class LikesController extends Controller
                         auth()->user()->likes()->create([
                             'question_id' => $data['question'],
                             'is_like' => $data['is_like'],
-                            'recipient_id' => $data['recipient_id'],
                         ]);
                     }
                 } else {
@@ -96,7 +93,6 @@ class LikesController extends Controller
                         auth()->user()->likes()->create([
                             'question_id' => $data['question'],
                             'is_like' => $data['is_like'],
-                            'recipient_id' => $data['recipient_id'],
                         ]);
                     }
                 }

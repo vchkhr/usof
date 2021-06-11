@@ -17,6 +17,22 @@ class AnswerSeeder extends Seeder
             'created_at' => '2000-01-01 00:00:01',
             'updated_at' => '2000-01-01 00:00:01'
         ]);
+
+        DB::table('answers')->insert([
+            'description' => 'Basically you can do this: pip install tensorflow',
+            'question_id' => 1,
+            'user_id' => 5,
+            'created_at' => '2000-01-01 00:00:01',
+            'updated_at' => '2000-01-01 00:00:01'
+        ]);
+
+        DB::table('answers')->insert([
+            'description' => 'If you require a specific older version, like 1.15, you can do this: pip install tensorflow==1.15',
+            'question_id' => 1,
+            'user_id' => 3,
+            'created_at' => '2000-01-01 00:00:01',
+            'updated_at' => '2000-01-01 00:00:01'
+        ]);
         
         DB::table('answers')->insert([
             'description' => 'You may add sth. that closes/quits the windows you invoke.',
