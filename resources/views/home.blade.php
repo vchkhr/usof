@@ -40,7 +40,15 @@
 
                             <ul>
                                 @for($i = count($allTags) - 1; $i >= 0; $i--)
-                                <li><a href="/tag/{{ $allTags[$i] }}">{{ $allTags[$i] }}</a></li>
+                                <li>
+                                    <a href="/tag/{{ $allTags[$i]['name'] }}">{{ $allTags[$i]['name'] }}</a>
+                                    <span class="text-muted">
+                                    ({{ $allTags[$i]['count'] }} 
+                                    @if($allTags[$i]['count'] <= 1) question)
+                                    @else questions)
+                                    @endif
+                                    </span>
+                                </li>
                                 @endfor
                             </ul>
                     </div>
