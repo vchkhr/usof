@@ -59,6 +59,7 @@ class ProfilesController extends Controller
         DB::table('questions')->where('user_id', '=', auth()->user()->id)->delete();
         DB::table('answers')->where('user_id', '=', auth()->user()->id)->delete();
         DB::table('likes')->where('user_id', '=', auth()->user()->id)->delete();
+        DB::table('likes')->where('recipient_id', '=', auth()->user()->id)->delete();
         DB::table('users')->where('id', '=', auth()->user()->id)->delete();
 
         return redirect()->route('login');

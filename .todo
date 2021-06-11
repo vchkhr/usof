@@ -1,5 +1,4 @@
-- Rating of users
-- Rating of profiles
+- Rating of questions
 - Rating of tags
 
 - Default entries for database
@@ -7,3 +6,5 @@
 - Admin Panel
 
 - Restore Password
+
+- Pagination

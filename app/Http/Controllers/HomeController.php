@@ -12,6 +12,7 @@ class HomeController extends Controller
         $user = \Auth::user();
         $questions = \App\Models\Question::all();
         $users = \App\Models\User::all();
+        $likes = \App\Models\Like::all();
         
         $allTags = array();
         foreach($questions as $question) {
@@ -23,6 +24,6 @@ class HomeController extends Controller
             }
         }
 
-        return view('home', compact('user', 'questions', 'users', 'allTags'));
+        return view('home', compact('user', 'questions', 'users', 'allTags', 'likes'));
     }
 }

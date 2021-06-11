@@ -54,7 +54,10 @@
 
                             <ul>
                                 @for($i = count($users) - 1; $i >= 0; $i--)
-                                <li><a href="/profile/{{ $users[$i]->id }}">{{ $users[$i]->name }}</a></li>
+                                <li>
+                                    <a href="/profile/{{ $users[$i]->id }}">{{ $users[$i]->name }}</a>
+                                    <span class="text-muted">(rating: {{ \App\Models\Like::where('recipient_id', $users[$i]->id)->count() }})</span>
+                                </li>
                                 @endfor
                             </ul>
                     </div>
