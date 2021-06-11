@@ -44,6 +44,7 @@ class QuestionSeeder extends Seeder
             'description' => 'I want to autogenerate documentation to my code from docstrings.',
             'tags' => 'python,python-3.6,python-sphinx,autodoc,sphinx-napoleon',
             'user_id' => 2,
+            'solved' => 1,
             'created_at' => '2000-01-01 00:00:01',
             'updated_at' => '2000-01-01 00:00:01'
         ]);

@@ -191,6 +191,7 @@
                                 {{ \App\Models\User::where('id', $question->answers[$i]->user_id)->get()[0]->name }}
                             </a>
                             <span>@ {{ $question->answers[$i]->created_at }}</span>
+                            <small class="text-muted">ID: {{ $question->answers[$i]->id }}</small>
                         </p>
 
                         <p>

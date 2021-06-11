@@ -1,19 +1,17 @@
-- Default entries for database
-
-- Admin Panel
-
-- Restore Password
-
-- Pagination
-
-- Delete likes and answers on question delete
-- Delete likes on answer delete
-- Delete by recipient
-
-- Search
+- Move everything unneeded from views to controllers
 
 - All Questions
 - All Tags
 - All Users
 
-- Move everything unneeded from views to controllers
+- Search
+
+- Delete likes and answers on question delete
+- Delete likes on answer delete
+- Delete by recipient
+
+- Pagination
+
+- Admin Panel
+
+- Restore Password

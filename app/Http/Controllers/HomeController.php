@@ -99,6 +99,8 @@ class HomeController extends Controller
 
         array_multisort(array_column($usersRating, 'rating'), SORT_DESC, array_column($usersRating, 'id'), $usersRating);
 
-        return view('home', compact('user', 'questions', 'users', 'allTags', 'likes', 'questionsRating', 'usersRating'));
+        array_multisort(array_column($allTags, 'count'), SORT_DESC, array_column($allTags, 'name'), $allTags);
+
+        return view('home', compact('allTags', 'questionsRating', 'usersRating'));
     }
 }

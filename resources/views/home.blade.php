@@ -15,7 +15,7 @@
                     <div>
                         <h3>Top 10 Questions</h4>
 
-                            @if(count($questions) == 0)
+                            @if(count($questionsRating) == 0)
                             <p>No questions yet</p>
                             @endif
 
@@ -38,14 +38,14 @@
                     </div>
 
                     <div>
-                        <h3>Tags</h4>
+                        <h3>Top 10 Tags</h4>
 
                             @if(count($allTags) == 0)
                             <p>No tags yet</p>
                             @endif
 
                             <ul>
-                                @for($i = count($allTags) - 1; $i >= 0; $i--)
+                                @for($i = 0; $i < count($allTags) && $i < 10; $i++)
                                 <li>
                                     <a href="/tag/{{ $allTags[$i]['name'] }}">{{ $allTags[$i]['name'] }}</a>
                                     <span class="text-muted">
@@ -64,7 +64,7 @@
                     <div>
                         <h3>Top 10 Users</h4>
 
-                            @if(count($users) == 0)
+                            @if(count($usersRating) == 0)
                             <p>No users yet</p>
                             @endif
 
