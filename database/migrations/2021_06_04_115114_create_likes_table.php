@@ -13,8 +13,8 @@ class CreateLikesTable extends Migration
                 $table->id();
 
                 $table->unsignedBigInteger('user_id');
-                $table->unsignedBigInteger('answer_id')->nullable();
                 $table->unsignedBigInteger('question_id')->nullable();
+                $table->unsignedBigInteger('answer_id')->nullable();
                 $table->integer('is_like')->nullable();
 
                 $table->timestamps();

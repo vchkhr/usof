@@ -62,17 +62,17 @@
                     </div>
 
                     <div>
-                        <h3>Users</h4>
+                        <h3>Top 10 Users</h4>
 
                             @if(count($users) == 0)
                             <p>No users yet</p>
                             @endif
 
                             <ul>
-                                @for($i = count($users) - 1; $i >= 0; $i--)
+                                @for($i = 0; $i < count($usersRating) && $i < 10; $i++)
                                 <li>
-                                    <a href="/profile/{{ $users[$i]->id }}">{{ $users[$i]->name }}</a>
-                                    <span class="text-muted">rating: </span>
+                                    <a href="/profile/{{ $usersRating[$i]['id'] }}">{{ $usersRating[$i]['name'] }}</a>
+                                    <span class="text-muted">rating: {{ $usersRating[$i]['rating'] }}</span>
                                 </li>
                                 @endfor
                             </ul>
