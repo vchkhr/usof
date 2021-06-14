@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Question;
+use App\Models\Answer;
 use App\Models\Like;
 
 class QuestionsController extends Controller
@@ -53,9 +54,16 @@ class QuestionsController extends Controller
         $rating -= Like::where([['question_id', $question->id], ['is_like', 0]])->count();
 
         $answerCorrect = $question->answers->where('id', $question->correct_answer_id)->first();
-        $answerCorrectUser = User::where('id', $answerCorrect->user_id)->get()[0];
-        $answerCorrectRating = Like::where([['answer_id', $answerCorrect->id], ['is_like', 1]])->count();
-        $answerCorrectRating -= Like::where([['answer_id', $answerCorrect->id], ['is_like', 0]])->count();
+
+        if ($answerCorrect != null) {
+            $answerCorrectUser = User::where('id', $answerCorrect->user_id)->get()[0];
+            $answerCorrectRating = Like::where([['answer_id', $answerCorrect->id], ['is_like', 1]])->count();
+            $answerCorrectRating -= Like::where([['answer_id', $answerCorrect->id], ['is_like', 0]])->count();
+        }
+        else {
+            $answerCorrectUser = null;
+            $answerCorrectRating = null;
+        }
 
         return view('questions.show', compact('question', 'user', 'answerCorrect', 'answerCorrectUser', 'answerCorrectRating', 'tags', 'rating'));
     }
@@ -97,7 +105,13 @@ class QuestionsController extends Controller
             return;
         }
         if (request()->query('correctAnswerId') != null) {
-            $q->correct_answer_id = request()->query('correctAnswerId');
+            if (request()->query('correctAnswerId') == 0) {
+                $q->correct_answer_id = null;
+            }
+            else {
+                $q->correct_answer_id = request()->query('correctAnswerId');
+            }
+
             $q->save();
 
             return;
@@ -134,8 +148,15 @@ class QuestionsController extends Controller
 
     public function destroy($id)
     {
-        $question = Question::find($id);
+        $answers = Answer::where('question_id', $id)->get();
 
+        foreach($answers as $answer) {
+            Like::where('answer_id', $answer->id)->delete();
+            $answer->delete();
+        }
+
+        $question = Question::find($id);
+        Like::where('question_id', $question->id)->delete();
         $question->delete();
 
         return redirect()->route('home');

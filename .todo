@@ -4,8 +4,6 @@
 
 - Search
 
-- Delete likes and answers on question delete
-- Delete likes on answer delete
 - Delete by recipient
 
 - Pagination
@@ -15,3 +13,5 @@
 - Restore Password
 
 - Welcome page
+
+- Favorites

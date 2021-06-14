@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Answer;
+use App\Models\Like;
 
 class AnswersController extends Controller
 {
@@ -85,6 +86,8 @@ class AnswersController extends Controller
     {
         $answer = Answer::find($id);
         $question = $answer->question_id;
+
+        Like::where('answer_id', $id)->delete();
 
         $answer->delete();
 

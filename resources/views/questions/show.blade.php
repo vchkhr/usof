@@ -92,7 +92,7 @@
     </div>
 </div>
 
-@if($question->correct_answer_id != null && \App\Models\Answer::where('id', $question->correct_answer_id)->count() > 0)
+@if($answerCorrect != null)
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -145,9 +145,7 @@
                         <a href="/answer/{{ $answerCorrect->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
                     @endif
 
-                    @if (isset($user) && $question->user_id == $user->id)
-                        <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $answerCorrect->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
-                    @endif
+                    <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
 
                     @if (isset($user) && $answerCorrect->user_id == $user->id)
                         <form class="d-inline" method="POST" action="{{ route('answer.destroy', ['id' => $answerCorrect->id]) }}">
@@ -201,18 +199,18 @@
                             <span>{{ App\Http\Controllers\QuestionsController::getRating($question, $i) }}</span>
 
                             @if(isset($user) && $user->id != $question->answers[$i]->user_id)
-                            @if(\App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0)
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1">like</a>
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0">dislike</a>
-                            @else
-                            @if(\App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->get()[0]->is_like == 1)
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1">unlike</a>
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0">dislike</a>
-                            @else
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1">like</a>
-                            <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0">undislike</a>
-                            @endif
-                            @endif
+                                    @if(\App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->count() == 0)
+                                    <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1">like</a>
+                                    <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0">dislike</a>
+                                @else
+                                    @if(\App\Models\Like::where([['answer_id', $question->answers[$i]->id], ['user_id', $user->id]])->get()[0]->is_like == 1)
+                                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1">unlike</a>
+                                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0">dislike</a>
+                                    @else
+                                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=1">like</a>
+                                        <a href="/like/create?question={{ $question->id }}&answer={{ $question->answers[$i]->id }}&is_like=0">undislike</a>
+                                    @endif
+                                @endif
                             @endif
 
                             @if(\App\Models\Answer::where('id', $question->correct_answer_id)->count() > 0 && $answerCorrect->id == $question->answers[$i]->id)
@@ -224,8 +222,12 @@
                             <a href="/answer/{{ $question->answers[$i]->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
                         @endif
 
-                        @if (isset($user) && $question->answers[$i]->user_id == $user->id)
-                            <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $question->answers[$i]->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
+                        @if (isset($user) && $question->user_id == $user->id)
+                            @if (!$question->correct_answer_id || $question->correct_answer_id != $question->answers[$i]->id)
+                                <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $question->answers[$i]->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
+                            @else
+                                <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
+                            @endif
                         @endif
 
                         @if (isset($user) && $question->answers[$i]->user_id == $user->id)

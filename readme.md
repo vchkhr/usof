@@ -12,6 +12,6 @@ To run the server enter:
 
 Go to `http://127.0.0.1:8000` in your browser.
 
-You can fill database with example data. To do so, create empty `usof` database and run `php artisan db:seed`.
+You can fill database with example data. To do so, do all migrations on empty `usof` database and run `php artisan db:seed`.
 
 You may need to run `php artisan storage:link` to properly work with images.
