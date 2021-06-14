@@ -54,5 +54,14 @@ class UserSeeder extends Seeder
             'updated_at' => '2000-01-01 00:00:01',
             'email_verified_at' => '2000-01-01 00:00:01',
         ]);
+        
+        DB::table('users')->insert([
+            'name' => 'jack',
+            'email' => 'jack@gmail.com',
+            'password' => Hash::make('123123123'),
+            'created_at' => '2000-01-01 00:00:01',
+            'updated_at' => '2000-01-01 00:00:01',
+            'email_verified_at' => '2000-01-01 00:00:01',
+        ]);
     }
 }
