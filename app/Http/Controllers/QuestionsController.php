@@ -59,13 +59,19 @@ class QuestionsController extends Controller
             $answerCorrectUser = User::where('id', $answerCorrect->user_id)->get()[0];
             $answerCorrectRating = Like::where([['answer_id', $answerCorrect->id], ['is_like', 1]])->count();
             $answerCorrectRating -= Like::where([['answer_id', $answerCorrect->id], ['is_like', 0]])->count();
-        }
-        else {
+        } else {
             $answerCorrectUser = null;
             $answerCorrectRating = null;
         }
 
         return view('questions.show', compact('question', 'user', 'answerCorrect', 'answerCorrectUser', 'answerCorrectRating', 'tags', 'rating'));
+    }
+
+    public function index()
+    {
+        $questions = Question::where("id", ">", "0")->paginate(5);
+
+        return view('questions.index', compact('questions'));
     }
 
     public function edit(User $user, Question $question)
@@ -107,8 +113,7 @@ class QuestionsController extends Controller
         if (request()->query('correctAnswerId') != null) {
             if (request()->query('correctAnswerId') == 0) {
                 $q->correct_answer_id = null;
-            }
-            else {
+            } else {
                 $q->correct_answer_id = request()->query('correctAnswerId');
             }
 
@@ -150,7 +155,7 @@ class QuestionsController extends Controller
     {
         $answers = Answer::where('question_id', $id)->get();
 
-        foreach($answers as $answer) {
+        foreach ($answers as $answer) {
             Like::where('answer_id', $answer->id)->delete();
             $answer->delete();
         }
@@ -176,7 +181,8 @@ class QuestionsController extends Controller
         return $res;
     }
 
-    public static function getRating($question, $i) {
+    public static function getRating($question, $i)
+    {
         $res = Like::where([['answer_id', $question->answers[$i]->id], ['is_like', 1]])->count();
         $res -= Like::where([['answer_id', $question->answers[$i]->id], ['is_like', 0]])->count();
 

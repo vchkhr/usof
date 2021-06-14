@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Mail\WelcomeMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/email/welcome', function() {
+    return new WelcomeMail();
+});
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -33,6 +38,8 @@ Route::post("/question", [App\Http\Controllers\QuestionsController::class, 'stor
 Route::get("/question/{question}/edit", [App\Http\Controllers\QuestionsController::class, 'edit'])->name('edit');
 Route::delete("/question/{id}/delete", [App\Http\Controllers\QuestionsController::class, 'destroy'])->name('question.destroy');
 Route::patch('/question/{question}', [App\Http\Controllers\QuestionsController::class, 'update'])->name('question.update');
+
+Route::get("/questions", [App\Http\Controllers\QuestionsController::class, 'index']);
 
 Route::get("/answer/create", [App\Http\Controllers\AnswersController::class, 'create']);
 Route::post("/answer", [App\Http\Controllers\AnswersController::class, 'store']);

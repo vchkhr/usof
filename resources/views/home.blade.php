@@ -37,6 +37,10 @@
                             </ul>
                     </div>
 
+                    <div class="row justify-content-center">
+                        <a class="btn btn-primary mb-5" href="/questions">All Questions</a>
+                    </div>
+
                     <div>
                         <h3>Top 10 Tags</h4>
 
@@ -61,6 +65,10 @@
                             </ul>
                     </div>
 
+                    <div class="row justify-content-center">
+                        <a class="btn btn-primary mb-5" href="/tags">All Tags</a>
+                    </div>
+
                     <div>
                         <h3>Top 10 Users</h4>
 
@@ -76,6 +84,10 @@
                                     </li>
                                 @endfor
                             </ul>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <a class="btn btn-primary mb-5" href="/users">All Users</a>
                     </div>
                 </div>
             </div>
