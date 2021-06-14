@@ -70,10 +70,10 @@
                     </div>
 
                     <div>
-                        <h3>Top 10 Users</h4>
+                        <h3>Top 10 Profiles</h4>
 
                             @if(count($usersRating) == 0)
-                                <p>No users yet</p>
+                                <p>No profiles yet</p>
                             @endif
 
                             <ul>
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <a class="btn btn-primary mb-5" href="/users">All Users</a>
+                        <a class="btn btn-primary mb-5" href="/profiles">All Profiles</a>
                     </div>
                 </div>
             </div>

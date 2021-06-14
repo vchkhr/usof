@@ -24,6 +24,13 @@ class ProfilesController extends Controller
         return view('profiles.index', compact('user'));
     }
 
+    public function indexAll()
+    {
+        $profiles = Profile::where("id", ">", "0")->paginate(5);
+
+        return view('profiles.indexAll', compact('profiles'));
+    }
+
     public function edit(User $user, Profile $profile)
     {
         $this->authorize("update", $user->profile);

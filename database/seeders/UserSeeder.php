@@ -15,7 +15,8 @@ class UserSeeder extends Seeder
             'email' => 'pavlo@gmail.com',
             'password' => Hash::make('123123123'),
             'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'updated_at' => '2000-01-01 00:00:01',
+            'email_verified_at' => '2000-01-01 00:00:01',
         ]);
         
         DB::table('users')->insert([
@@ -23,7 +24,8 @@ class UserSeeder extends Seeder
             'email' => 'ivan@gmail.com',
             'password' => Hash::make('123123123'),
             'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'updated_at' => '2000-01-01 00:00:01',
+            'email_verified_at' => '2000-01-01 00:00:01',
         ]);
         
         DB::table('users')->insert([
@@ -31,7 +33,8 @@ class UserSeeder extends Seeder
             'email' => 'kateryna@gmail.com',
             'password' => Hash::make('123123123'),
             'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'updated_at' => '2000-01-01 00:00:01',
+            'email_verified_at' => '2000-01-01 00:00:01',
         ]);
         
         DB::table('users')->insert([
@@ -39,7 +42,8 @@ class UserSeeder extends Seeder
             'email' => 'olya@gmail.com',
             'password' => Hash::make('123123123'),
             'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'updated_at' => '2000-01-01 00:00:01',
+            'email_verified_at' => '2000-01-01 00:00:01',
         ]);
         
         DB::table('users')->insert([
@@ -47,7 +51,8 @@ class UserSeeder extends Seeder
             'email' => 'nazar@gmail.com',
             'password' => Hash::make('123123123'),
             'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'updated_at' => '2000-01-01 00:00:01',
+            'email_verified_at' => '2000-01-01 00:00:01',
         ]);
     }
 }

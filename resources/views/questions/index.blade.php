@@ -19,7 +19,7 @@
                     @endif
 
                     <ul>
-                        @for($i = 0; $i < count($questions) && $i < 10; $i++)
+                        @for($i = 0; $i < count($questions); $i++)
                             <li>
                                 <a href="/question/{{ $questions[$i]['id'] }}">{{ $questions[$i]['title'] }}</a>
                                 <span>@ {{ $questions[$i]['created_at'] }}</span>
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="container mt-2">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div style="margin-left: auto; margin-right: auto;">{{ $questions->links() }}</div>
     </div>
