@@ -143,11 +143,9 @@
 
                     @if (isset($user) && $answerCorrect->user_id == $user->id)
                         <a href="/answer/{{ $answerCorrect->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
-                    @endif
 
-                    <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
+                        <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
 
-                    @if (isset($user) && $answerCorrect->user_id == $user->id)
                         <form class="d-inline" method="POST" action="{{ route('answer.destroy', ['id' => $answerCorrect->id]) }}">
                             @csrf
                             @method('DELETE')
