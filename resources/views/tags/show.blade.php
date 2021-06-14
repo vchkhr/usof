@@ -9,17 +9,12 @@
 
                 <div class="card-body">
                     <h3>
-                        <small class="text-muted">#</small>
-                        <span>{{ $tagRequest }}</span>
+                        <small class="text-muted">#</small><span>{{ $tag }}</span>
                     </h3>
 
                     <ul>
-                        @foreach(\App\Models\Question::all() as $question)
-                            @foreach(explode(",", $question['tags']) as $tag)
-                                @if(str_replace(" ", "-", $tag) == $tagRequest)
-                                    <li><a href="/question/{{ $question->id }}">{{ $question['title'] }}</a></li>
-                                @endif
-                            @endforeach
+                        @foreach($questions as $question)
+                            <li><a href="/question/{{ $question['title'] }}">{{ $question['title'] }}</a></li>
                         @endforeach
                     </ul>
                 </div>

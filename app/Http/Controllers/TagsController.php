@@ -6,8 +6,25 @@ class TagsController extends Controller
 {
     public function show()
     {
-        $tagRequest = explode(" ", explode("GET /tag/", request())[1])[0];
+        $tagSearch = explode(" ", explode("GET /tag/", request())[1])[0];
+        $questions = [];
 
-        return view('tags.show', compact('tagRequest'));
+        foreach(\App\Models\Question::all() as $question) {
+            foreach(explode(",", $question['tags']) as $tag) {
+                $tags = explode(",", $question['tags']);
+
+                if (str_replace(" ", "-", $tag) == $tagSearch) {
+                    array_push($questions, [
+                        'id' => $question->id,
+                        'title' => $question->title,
+                    ]);
+                }
+            }
+        }
+
+        return view('tags.show', [
+            'questions' => $questions,
+            'tag' => $tagSearch
+        ]);
     }
 }

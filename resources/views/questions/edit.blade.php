@@ -19,9 +19,9 @@
                                 <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $question['title'] }}" autocomplete="title" autofocus>
 
                                 @error('title')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
@@ -33,9 +33,9 @@
                                 <input id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ $question['description'] }}" autocomplete="description">
 
                                 @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
@@ -47,9 +47,9 @@
                                 <input id="image" type="file" class="form-control-file @error('image') is-invalid @enderror" name="image" value="" autocomplete="image">
 
                                 @error('image')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
@@ -61,9 +61,9 @@
                                 <input id="deleteImage" type="checkbox" class="@error('deleteImage') is-invalid @enderror" name="deleteImage" value="" style="margin-top: 12px;">
 
                                 @error('deleteImage')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Question;
+use App\Models\Like;
 
 class QuestionsController extends Controller
 {
@@ -24,8 +25,7 @@ class QuestionsController extends Controller
 
         if (array_key_exists('image', $data) == true) {
             $imagePath = request('image')->store('uploads', 'public');
-        }
-        else {
+        } else {
             $imagePath = null;
         }
 
@@ -47,9 +47,17 @@ class QuestionsController extends Controller
     public function show(Question $question)
     {
         $user = auth()->user();
+        $tags = explode(",", $question->tags);
+
+        $rating = Like::where([['question_id', $question->id], ['is_like', 1]])->count();
+        $rating -= Like::where([['question_id', $question->id], ['is_like', 0]])->count();
+
         $answerCorrect = $question->answers->where('id', $question->correct_answer_id)->first();
-        
-        return view('questions.show', compact('question', 'user', 'answerCorrect'));
+        $answerCorrectUser = User::where('id', $answerCorrect->user_id)->get()[0];
+        $answerCorrectRating = Like::where([['answer_id', $answerCorrect->id], ['is_like', 1]])->count();
+        $answerCorrectRating -= Like::where([['answer_id', $answerCorrect->id], ['is_like', 0]])->count();
+
+        return view('questions.show', compact('question', 'user', 'answerCorrect', 'answerCorrectUser', 'answerCorrectRating', 'tags', 'rating'));
     }
 
     public function edit(User $user, Question $question)
@@ -94,7 +102,7 @@ class QuestionsController extends Controller
 
             return;
         }
-        
+
         $data = request()->validate([
             'title' => 'required',
             'description' => 'nullable',
@@ -107,12 +115,10 @@ class QuestionsController extends Controller
             $data['image'] = null;
 
             unset($data['deleteImage']);
-        }
-        else {
+        } else {
             if (array_key_exists('image', $data) == true) {
                 $data['image'] = request('image')->store('uploads', 'public');
-            }
-            else {
+            } else {
                 $data['image'] = $q->image;
             }
         }
@@ -133,5 +139,26 @@ class QuestionsController extends Controller
         $question->delete();
 
         return redirect()->route('home');
+    }
+
+    public static function getUser($question, $i)
+    {
+        $res = User::where('id', $question->answers[$i]->user_id)->get()[0];
+
+        return $res;
+    }
+
+    public static function getProfile($question, $i)
+    {
+        $res = User::where('id', $question->answers[$i]->user_id)->get()[0]->profile;
+
+        return $res;
+    }
+
+    public static function getRating($question, $i) {
+        $res = Like::where([['answer_id', $question->answers[$i]->id], ['is_like', 1]])->count();
+        $res -= Like::where([['answer_id', $question->answers[$i]->id], ['is_like', 0]])->count();
+
+        return $res;
     }
 }
