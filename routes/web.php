@@ -20,6 +20,8 @@ use App\Mail\WelcomeMail;
 
 Auth::routes();
 
+Auth::routes(['verify' => true]);
+
 Route::get('/email/welcome', function() {
     return new WelcomeMail();
 });

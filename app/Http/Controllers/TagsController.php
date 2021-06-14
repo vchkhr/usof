@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 class TagsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function show()
     {
         $tagSearch = explode(" ", explode("GET /tag/", request())[1])[0];

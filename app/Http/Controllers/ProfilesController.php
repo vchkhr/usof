@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class ProfilesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function index(User $user)
     {
         if ($user->profile == null) {

@@ -9,6 +9,11 @@ use App\Models\Like;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function create()
     {
         return view('questions/create');

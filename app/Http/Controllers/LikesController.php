@@ -8,6 +8,11 @@ use DB;
 
 class LikesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function create(Request $request)
     {
         $this->store($request);
