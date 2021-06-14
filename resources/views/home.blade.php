@@ -16,23 +16,23 @@
                         <h3>Top 10 Questions</h4>
 
                             @if(count($questionsRating) == 0)
-                            <p>No questions yet</p>
+                                <p>No questions yet</p>
                             @endif
 
                             <ul>
                                 @for($i = 0; $i < count($questionsRating) && $i < 10; $i++)
-                                <li>
-                                    <a href="/question/{{ $questionsRating[$i]['id'] }}">{{ $questionsRating[$i]['title'] }}</a>
-                                    <span>@ {{ $questionsRating[$i]['created_at'] }}</span>
+                                    <li>
+                                        <a href="/question/{{ $questionsRating[$i]['id'] }}">{{ $questionsRating[$i]['title'] }}</a>
+                                        <span>@ {{ $questionsRating[$i]['created_at'] }}</span>
 
-                                    <span class="text-muted">
-                                        <span>rating: {{ \App\Models\Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 1]])->count() - \App\Models\Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 0]])->count() }}</span>
+                                        <span class="text-muted">
+                                            <span>rating: {{ App\Http\Controllers\HomeController::calculateHome($questionsRating, $i) }}</span>
 
-                                        @if($questionsRating[$i]['solved'] == 1)
-                                        <span>| solved</span>
-                                        @endif
-                                    </span>
-                                </li>
+                                            @if($questionsRating[$i]['solved'] == 1)
+                                                <span>| solved</span>
+                                            @endif
+                                        </span>
+                                    </li>
                                 @endfor
                             </ul>
                     </div>
@@ -41,22 +41,22 @@
                         <h3>Top 10 Tags</h4>
 
                             @if(count($allTags) == 0)
-                            <p>No tags yet</p>
+                                <p>No tags yet</p>
                             @endif
 
                             <ul>
                                 @for($i = 0; $i < count($allTags) && $i < 10; $i++)
-                                <li>
-                                    <a href="/tag/{{ $allTags[$i]['name'] }}">{{ $allTags[$i]['name'] }}</a>
-                                    <span class="text-muted">
-                                        <span>{{ $allTags[$i]['count'] }} </span>
+                                    <li>
+                                        <a href="/tag/{{ $allTags[$i]['name'] }}">{{ $allTags[$i]['name'] }}</a>
+                                        <span class="text-muted">
+                                            <span>{{ $allTags[$i]['count'] }} </span>
                                         @if($allTags[$i]['count'] <= 1)
-                                        <span>question</span>
+                                            <span>question</span>
                                         @else
-                                        <span>questions</span>
+                                            <span>questions</span>
                                         @endif
-                                    </span>
-                                </li>
+                                        </span>
+                                    </li>
                                 @endfor
                             </ul>
                     </div>
@@ -65,15 +65,15 @@
                         <h3>Top 10 Users</h4>
 
                             @if(count($usersRating) == 0)
-                            <p>No users yet</p>
+                                <p>No users yet</p>
                             @endif
 
                             <ul>
                                 @for($i = 0; $i < count($usersRating) && $i < 10; $i++)
-                                <li>
-                                    <a href="/profile/{{ $usersRating[$i]['id'] }}">{{ $usersRating[$i]['name'] }}</a>
-                                    <span class="text-muted">rating: {{ $usersRating[$i]['rating'] }}</span>
-                                </li>
+                                    <li>
+                                        <a href="/profile/{{ $usersRating[$i]['id'] }}">{{ $usersRating[$i]['name'] }}</a>
+                                        <span class="text-muted">rating: {{ $usersRating[$i]['rating'] }}</span>
+                                    </li>
                                 @endfor
                             </ul>
                     </div>

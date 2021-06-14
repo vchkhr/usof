@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DB;
+use App\Models\User;
+use App\Models\Question;
+use App\Models\Answer;
+use App\Models\Like;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $user = \Auth::user();
-        $users = \App\Models\User::all();
-        $questions = \App\Models\Question::all();
-        $answers = \App\Models\Answer::all();
-        $likes = \App\Models\Like::all();
+        $users = User::all();
+        $questions = Question::all();
+        $answers = Answer::all();
+        $likes = Like::all();
 
         $allTags = array();
         foreach ($questions as $question) {
@@ -102,5 +104,12 @@ class HomeController extends Controller
         array_multisort(array_column($allTags, 'count'), SORT_DESC, array_column($allTags, 'name'), $allTags);
 
         return view('home', compact('allTags', 'questionsRating', 'usersRating'));
+    }
+
+    public static function calculateHome($questionsRating, $i) {
+        $res = Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 1]])->count();
+        $res -= Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 0]])->count();
+
+        return $res;
     }
 }
