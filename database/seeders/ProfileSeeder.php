@@ -14,12 +14,19 @@ class ProfileSeeder extends Seeder
             'user_id' => 1,
             'real_name' => 'Paul',
             'description' => 'Hi! I\'m a new here.',
-            'url' => 'https://paul.com',
+            'url' => 'http://paul.com',
             'created_at' => '2000-01-01 00:00:01',
             'updated_at' => '2000-01-01 00:00:01'
         ]);
 
-        for ($i = 2; $i <= 6; $i++) {
+        DB::table('profiles')->insert([
+            'user_id' => 2,
+            'url' => 'https://ivan.com',
+            'created_at' => '2000-01-01 00:00:01',
+            'updated_at' => '2000-01-01 00:00:01'
+        ]);
+
+        for ($i = 3; $i <= 6; $i++) {
             DB::table('profiles')->insert([
                 'user_id' => $i,
                 'created_at' => '2000-01-01 00:00:01',

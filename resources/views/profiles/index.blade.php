@@ -26,12 +26,22 @@
                                 <span class="mr-2"></span>
                             </h3>
 
+                            <h5>Rating:  {{ $rating }} | Questions: {{ count($user->questions) }} | Answers: {{ count($user->answers) }}</h5>
+
                             <p class="@if($user->profile->url != null) mb-0 @endif">{{ $user->profile->description }}</p>
 
                             @if($user->profile->url != null)
                                 <p>
                                     <a href="{{ $user->profile->url }}" target="_blank">{{ explode("://", $user->profile->url)[1] }}</small></a>
-                                    <small class="text-muted">(external website)</small>
+                                    <small class="text-muted">
+                                        @if($urlProtocol == 'http')
+                                            <span style="color: red;">unsecure</span>
+                                        @endif
+
+                                        @if($urlDomain != env('APP_NAME', ''))
+                                            <span>external website</span>
+                                        @endif
+                                    </small>
                                 </p>
                             @endif
 
@@ -41,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="mt-3">
                         <h3>Questions</h4>
 
                         @if(count($user->questions) == 0)

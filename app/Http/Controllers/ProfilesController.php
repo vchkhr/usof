@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Models\Question;
+use App\Models\Answer;
+use App\Models\Like;
 use Illuminate\Support\Facades\DB;
 
 class ProfilesController extends Controller
@@ -21,7 +24,38 @@ class ProfilesController extends Controller
             return redirect('/home');
         }
 
-        return view('profiles.index', compact('user'));
+        $likes = Like::all();
+        $rating = 0;
+        foreach($likes as $like) {
+            $user_id = null;
+
+            if ($like->question_id != null) {
+                $user_id = Question::where("id", $like->question_id)->first()->user_id;
+            }
+            else {
+                $user_id = Answer::where("id", $like->answer_id)->first()->user_id;
+            }
+            
+            if ($user_id == $user->id) {
+                if ($like->is_like == 1) {
+                    $rating += 1;
+                }
+                else {
+                    $rating -= 1;
+                }
+            }
+        }
+        
+        $url = $user->profile->url;
+        $urlDomain = null;
+        $urlProtocol = null;
+        
+        if ($url != null) {
+            $urlDomain = explode('/', str_replace('https://', '', str_replace('http://', '', $url)))[0];
+            $urlProtocol = explode('://', $url)[0];
+        }
+
+        return view('profiles.index', compact('user', 'rating', 'urlDomain', 'urlProtocol'));
     }
 
     public function indexAll()
