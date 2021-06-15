@@ -20,7 +20,11 @@
                                 <span>{{ $user->name }}</span>
 
                                 @if($user->profile->real_name != null)
-                                    <small class="text-muted">({{ $user->profile->real_name }})</small>
+                                    <small class="text-muted">{{ $user->profile->real_name }}</small>
+                                @endif
+
+                                @if($user->is_admin == true)
+                                    <small class="text-muted">admin</small>
                                 @endif
 
                                 <span class="mr-2"></span>

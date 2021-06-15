@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
             'name' => 'pavlo',
             'email' => 'pavlo@gmail.com',
             'password' => Hash::make('123123123'),
+            'is_admin' => true,
             'created_at' => '2000-01-01 00:00:01',
             'updated_at' => '2000-01-01 00:00:01',
             'email_verified_at' => '2000-01-01 00:00:01',
