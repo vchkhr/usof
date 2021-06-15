@@ -42,8 +42,8 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <form class="form-inline my-2 my-lg-0" action="/search">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
                                 <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                             </form>
                         </li>

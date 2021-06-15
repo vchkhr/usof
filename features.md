@@ -1,5 +1,4 @@
 Doc:
-3. Search.
 4. Sorting and filtering.
 5. The admin can update user data.
 
@@ -25,4 +24,4 @@ Basic features:
 4. Tag: see all.
 5. Answer: create (description, image, is correct), see all, update (all data, set as correct/incorrect), delete.
 6. Like/dislike: create (only one per user for each question and answer), see all, delete.
-7. 
+7. Search (among title and description of questions and answers);

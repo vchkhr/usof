@@ -42,3 +42,5 @@ Route::post("/like", [App\Http\Controllers\LikesController::class, 'store']);
 Route::get("/tag/{tag}", [App\Http\Controllers\TagsController::class, 'show']);
 
 Route::get("/tags", [App\Http\Controllers\TagsController::class, 'index']);
+
+Route::get("/search", [App\Http\Controllers\SearchesController::class, 'index']);
