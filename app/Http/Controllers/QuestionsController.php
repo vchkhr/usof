@@ -83,7 +83,7 @@ class QuestionsController extends Controller
     {
         $q = Question::find($question['id']);
 
-        if ($q->user_id !== auth()->user()->id) {
+        if (auth()->user()->is_admin == false && auth()->user()->id != $q->user_id) {
             abort(403);
         }
 
@@ -105,7 +105,7 @@ class QuestionsController extends Controller
     {
         $q = Question::find($question['id']);
 
-        if ($q->user_id !== auth()->user()->id) {
+        if (auth()->user()->is_admin == false && auth()->user()->id != $q->user_id) {
             abort(403);
         }
 
@@ -158,6 +158,12 @@ class QuestionsController extends Controller
 
     public function destroy($id)
     {
+        $question = Question::find($id);
+
+        if (auth()->user()->is_admin == false && auth()->user()->id != $question->user_id) {
+            abort(403);
+        }
+
         $answers = Answer::where('question_id', $id)->get();
 
         foreach ($answers as $answer) {
@@ -165,7 +171,6 @@ class QuestionsController extends Controller
             $answer->delete();
         }
 
-        $question = Question::find($id);
         Like::where('question_id', $question->id)->delete();
         $question->delete();
 

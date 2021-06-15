@@ -72,7 +72,7 @@
                         @endif
                     @endif
 
-                    @if (isset($user) && $question->user_id == $user['id'])
+                    @if (isset($user) && ($question->user_id == $user['id'] || $user->is_admin == true))
                         @if ($question->solved == 0)
                             <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
                         @else
@@ -145,7 +145,7 @@
                         <a href="/answer/{{ $answerCorrect->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
                     @endif
 
-                    @if (isset($user) && $question->user_id == $user->id)
+                    @if (isset($user) && ($question->user_id == $user->id || $user->is_admin == true))
                         <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
                     @endif
 
@@ -224,7 +224,7 @@
                             <a href="/answer/{{ $question->answers[$i]->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Answer</a>
                         @endif
 
-                        @if (isset($user) && $question->user_id == $user->id)
+                        @if (isset($user) && ($question->user_id == $user->id || $user->is_admin == true))
                             @if (!$question->correct_answer_id || $question->correct_answer_id != $question->answers[$i]->id)
                                 <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $question->answers[$i]->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
                             @else
@@ -232,7 +232,7 @@
                             @endif
                         @endif
 
-                        @if (isset($user) && $question->answers[$i]->user_id == $user->id)
+                        @if (isset($user) && ($question->answers[$i]->user_id == $user->id || $user->is_admin == true))
                             <form class="d-inline" method="POST" action="{{ route('answer.destroy', ['id' => $question->answers[$i]->id]) }}">
                                 @csrf
                                 @method('DELETE')

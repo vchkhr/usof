@@ -41,6 +41,13 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </li>
+
                         <!-- Authentication Links -->
                         @guest
                         @if (Route::has('login'))
@@ -55,6 +62,7 @@
                         </li>
                         @endif
                         @else
+
                         <li class="nav-item">
                             <a class="nav-link" href="/profile/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a>
                         </li>

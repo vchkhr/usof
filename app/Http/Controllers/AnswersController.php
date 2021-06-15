@@ -46,6 +46,10 @@ class AnswersController extends Controller
     {
         $a = Answer::find($answer['id']);
 
+        if (auth()->user()->is_admin == false && auth()->user()->id != $a->user_id) {
+            abort(403);
+        }
+
         if ($a->user_id !== auth()->user()->id) {
             abort(403);
         }
@@ -57,6 +61,10 @@ class AnswersController extends Controller
     {
         $a = Answer::find($answer['id']);
         $question = $a->question_id;
+
+        if (auth()->user()->is_admin == false && auth()->user()->id != $a->user_id) {
+            abort(403);
+        }
 
         if ($a->user_id !== auth()->user()->id) {
             abort(403);
@@ -91,6 +99,10 @@ class AnswersController extends Controller
     {
         $answer = Answer::find($id);
         $question = $answer->question_id;
+
+        if (auth()->user()->is_admin == false && auth()->user()->id != $answer->user_id) {
+            abort(403);
+        }
 
         Like::where('answer_id', $id)->delete();
 
