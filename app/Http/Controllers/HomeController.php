@@ -46,7 +46,13 @@ class HomeController extends Controller
 
         $questionsRating = array();
         foreach($questions as $question) {
-            array_push($questionsRating, ['id' => $question->id, 'rating' => 0, 'title' => $question->title, 'created_at' => $question->created_at, 'solved' => $question->solved]);
+            $description = $question->description;
+
+            if (strlen($description) >= 180) {
+                $description = substr($question->description, 0, 180) . "...";
+            }
+
+            array_push($questionsRating, ['id' => $question->id, 'rating' => 0, 'title' => $question->title, 'description' => $description, 'user_id' => $question->user_id, 'tags' => $question->tags, 'created_at' => $question->created_at, 'solved' => $question->solved]);
         }
 
         $usersRating = array();
@@ -108,7 +114,7 @@ class HomeController extends Controller
 
         array_multisort(array_column($allTags, 'count'), SORT_DESC, array_column($allTags, 'name'), $allTags);
 
-        return view('home', compact('allTags', 'questionsRating', 'usersRating'));
+        return view('home', compact('allTags', 'questionsRating', 'usersRating', 'users'));
     }
 
     public static function calculateHome($questionsRating, $i) {

@@ -65,18 +65,18 @@
                     </p>
 
                     @if (isset($user) && $question->solved == 0)
-                        <a href="/answer/create?question={{ $question->id }}" class="btn btn-success" role="button" data-bs-toggle="button">Answer Question</a>
+                        <a href="/answer/create?question={{ $question->id }}" class="btn btn-outline-success" role="button" data-bs-toggle="button">Answer Question</a>
 
                         @if (isset($user) && $question->user_id == $user['id'])
-                            <a href="/question/{{ $question->id }}/edit" class="btn btn-primary" role="button" data-bs-toggle="button">Edit Question</a>
+                            <a href="/question/{{ $question->id }}/edit" class="btn btn-outline-primary" role="button" data-bs-toggle="button">Edit Question</a>
                         @endif
                     @endif
 
                     @if (isset($user) && ($question->user_id == $user['id'] || $user->is_admin == true))
                         @if ($question->solved == 0)
-                            <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
+                            <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-outline-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
                         @else
-                            <a href="/question/{{ $question->id }}/edit?markAsSolved=false" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Unsolved</a>
+                            <a href="/question/{{ $question->id }}/edit?markAsSolved=false" class="btn btn-outline-warning" role="button" data-bs-toggle="button">Mark as Unsolved</a>
                         @endif
 
                         <form class="d-inline" method="POST" action="{{ route('question.destroy', ['id' => $question->id]) }}">
@@ -146,7 +146,7 @@
                     @endif
 
                     @if (isset($user) && ($question->user_id == $user->id || $user->is_admin == true))
-                        <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
+                        <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-outline-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
                     @endif
 
                     @if (isset($user) && $answerCorrect->user_id == $user->id)
@@ -226,9 +226,9 @@
 
                         @if (isset($user) && ($question->user_id == $user->id || $user->is_admin == true))
                             @if (!$question->correct_answer_id || $question->correct_answer_id != $question->answers[$i]->id)
-                                <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $question->answers[$i]->id }}" class="btn btn-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
+                                <a href="/question/{{ $question->id }}/edit?correctAnswerId={{ $question->answers[$i]->id }}" class="btn btn-outline-warning" role="button" data-bs-toggle="button">Mark as Correct</a>
                             @else
-                                <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
+                                <a href="/question/{{ $question->id }}/edit?correctAnswerId=0" class="btn btn-outline-danger" role="button" data-bs-toggle="button">Unmark as Correct</a>
                             @endif
                         @endif
 

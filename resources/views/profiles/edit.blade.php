@@ -94,7 +94,7 @@
                     <div class="alert alert-danger mt-5" role="alert">
                         <strong>Danger Zone!</strong>
 
-                        <p>To delete your profile enter <strong>{{ $user->name }}</strong> and press "Delete Profile". This will delete all your data, including profile's data, questions, answers and their materials, such as images.</p>
+                        <p>To delete your profile enter &nbsp;<code><strong>{{ $user->name }}</strong></code>&nbsp; and press "Delete Profile". This will delete all your data, including profile's data, questions, answers and their materials, such as images.</p>
 
                         <form method="POST" action="{{ route('profile.destroy', ['id' => $profile->id]) }}">
                         @csrf
