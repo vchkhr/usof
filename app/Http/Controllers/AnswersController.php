@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Answer;
 use App\Models\Like;
+use App\Models\Image;
+
+use Illuminate\Support\Facades\Storage;
 
 class AnswersController extends Controller
 {
@@ -27,7 +30,16 @@ class AnswersController extends Controller
         ]);
 
         if (array_key_exists('image', $data) == true) {
-            $imagePath = request('image')->store('uploads', 'public');
+            // $imagePath = request('image')->store('uploads', 'public');
+
+            $path = request('image')->storePublicly('images', 's3');
+                
+            $image = Image::create([
+                'filename' => basename($path),
+                'url' => Storage::disk('s3')->url($path)
+            ]);
+
+            $imagePath = $image->id;
         }
         else {
             $imagePath = null;

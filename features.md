@@ -1,3 +1,5 @@
+DELETE IMAGES
+
 Doc:
 4. Sorting and filtering.
 5. The admin can update user data.

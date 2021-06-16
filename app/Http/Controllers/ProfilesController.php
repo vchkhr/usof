@@ -7,7 +7,10 @@ use App\Models\Profile;
 use App\Models\Question;
 use App\Models\Answer;
 use App\Models\Like;
+use App\Models\Image;
+
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilesController extends Controller
 {
@@ -134,7 +137,15 @@ class ProfilesController extends Controller
         }
         else {
             if (array_key_exists('profile_photo', $data) == true) {
-                $data['profile_photo'] = request('profile_photo')->store('uploads', 'public');
+                // $data['profile_photo'] = request('profile_photo')->store('uploads', 'public');
+                $path = request('profile_photo')->storePublicly('images', 's3');
+
+                $image = Image::create([
+                    'filename' => basename($path),
+                    'url' => Storage::disk('s3')->url($path)
+                ]);
+
+                $data['profile_photo'] = $image->id;
             }
             else {
                 $data['profile_photo'] = auth()->user()->profile->profile_photo;

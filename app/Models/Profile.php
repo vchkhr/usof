@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Image;
+
+use Illuminate\Support\Facades\Storage;
+
 class Profile extends Model
 {
     use HasFactory;
@@ -17,7 +21,9 @@ class Profile extends Model
             return 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/480px-Circle-icons-profile.svg.png';
         }
 
-        return '/storage/' . $this->profile_photo;
+        $id = $this->profile_photo;
+
+        return Image::find($id)->url;
     }
 
     public function user()
