@@ -60,9 +60,55 @@ class ProfilesController extends Controller
 
     public function indexAll()
     {
-        $profiles = Profile::where("id", ">", "0")->paginate(5);
+        $users = User::all();
+        $likes = Like::all();
+        $questions = Question::all();
+        $answers = Answer::all();
+        $profiles = Profile::where("id", ">", "0")->paginate(20);
 
-        return view('profiles.indexAll', compact('profiles'));
+        $usersRating = array();
+        foreach($users as $user) {
+            array_push($usersRating, ['id' => $user->id, 'rating' => 0, 'name' => $user->name]);
+        }
+
+        foreach($likes as $like) {
+            $question_id = $like['question_id'];
+
+            if ($like->answer_id == null) {
+                $question_id = $like->question_id;
+                $user_id = $questions->where('id', $question_id)->first()->user_id;
+
+                for ($i = 0; $i < count($usersRating); $i++) {
+                    if ($usersRating[$i]['id'] == $user_id) {
+                        if ($like['is_like'] == 1) {
+                            $usersRating[$i]['rating'] += 1;
+                        }
+                        else {
+                            $usersRating[$i]['rating'] -= 1;
+                        }
+                    }
+                }
+            }
+            else {
+                $answer_id = $like->answer_id;
+                $user_id = $answers->where('id', $answer_id)->first()->user_id;
+
+                for ($i = 0; $i < count($usersRating); $i++) {
+                    if ($usersRating[$i]['id'] == $user_id) {
+                        if ($like['is_like'] == 1) {
+                            $usersRating[$i]['rating'] += 1;
+                        }
+                        else {
+                            $usersRating[$i]['rating'] -= 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        array_multisort(array_column($usersRating, 'rating'), SORT_DESC, array_column($usersRating, 'id'), $usersRating);
+
+        return view('profiles.indexAll', compact('usersRating', 'users'));
     }
 
     public function edit(User $user, Profile $profile)

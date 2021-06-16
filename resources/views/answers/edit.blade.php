@@ -40,19 +40,23 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="deleteImage" class="col-md-4 col-form-label text-md-right">Delete Image</label>
+                        @if($answer['image'] != null)
+                            <div class="form-group row">
+                                <label for="deleteImage" class="col-md-4 col-form-label text-md-right">Delete Image</label>
 
-                            <div class="col-md-6">
-                                <input id="deleteImage" type="checkbox" class="@error('deleteImage') is-invalid @enderror" name="deleteImage" value="" style="margin-top: 12px;">
+                                <div class="col-md-6">
+                                    <input id="deleteImage" type="checkbox" class="@error('deleteImage') is-invalid @enderror" name="deleteImage" value="" style="margin-top: 12px;">
 
-                                @error('deleteImage')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    <img src="/storage/{{ $answer['image'] }}" style="max-width: 100px; border-radius: 5px;">
+
+                                    @error('deleteImage')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

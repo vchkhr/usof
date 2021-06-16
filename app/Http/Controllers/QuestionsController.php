@@ -74,9 +74,10 @@ class QuestionsController extends Controller
 
     public function index()
     {
-        $questions = Question::where("id", ">", "0")->paginate(5);
+        $questions = Question::where("id", ">", "0")->paginate(10);
+        $users = User::all();
 
-        return view('questions.index', compact('questions'));
+        return view('questions.index', compact('questions', 'users'));
     }
 
     public function edit(User $user, Question $question)

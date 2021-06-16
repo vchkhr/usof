@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\User;
 
 class SearchesController extends Controller
 {
@@ -13,35 +14,46 @@ class SearchesController extends Controller
 
     public function index()
     {
+        $users = User::all();
+
         $questionsAll = Question::all();
         $questions = array();
+        $errorCode = 0;
         
         $search = request()->q;
 
-        foreach($questionsAll as $question) {
-            $title = strtolower($question->title);
-            $description = strtolower($question->description);
-            
-            if (strpos($title, strtolower($search)) !== false || strpos($description, strtolower($search)) !== false) {
-                array_push($questions, $question);
+        if ($search == null) {
+            $errorCode = 1;
+        }
+        else if (strlen($search) <= 3) {
+            $errorCode = 2;
+        }
+        else {
+            foreach($questionsAll as $question) {
+                $title = strtolower($question->title);
+                $description = strtolower($question->description);
                 
-                break;
-            }
-            else {
-                $answers = $question->answers;
-
-                foreach($answers as $answer) {
-                    $description = strtolower($answer->description);
+                if (strpos($title, strtolower($search)) !== false || strpos($description, strtolower($search)) !== false) {
+                    array_push($questions, $question);
                     
-                    if (strpos($description, strtolower($search)) !== false) {
-                        array_push($questions, $question);
-                
-                        break;
+                    break;
+                }
+                else {
+                    $answers = $question->answers;
+    
+                    foreach($answers as $answer) {
+                        $description = strtolower($answer->description);
+                        
+                        if (strpos($description, strtolower($search)) !== false) {
+                            array_push($questions, $question);
+                    
+                            break;
+                        }
                     }
                 }
             }
         }
 
-        return view('searches.index', compact('questions'));
+        return view('searches.index', compact('errorCode', 'questions', 'users'));
     }
 }

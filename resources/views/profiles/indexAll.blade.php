@@ -1,41 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mb-2">
-    <div class="row justify-content-center">
-        <div style="margin-left: auto; margin-right: auto;">{{ $profiles->links() }}</div>
-    </div>
-</div>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">profiles</div>
+                <div class="card-header">Profiles</div>
 
                 <div class="card-body">
-                    @if(count($profiles) == 0)
+                    @if(count($usersRating) == 0)
                         <p>No profiles yet</p>
                     @endif
 
-                    <p>
-                        @for($i = 0; $i < count($profiles); $i++)
-                            <a href="/profile/{{ $profiles[$i]->user_id }}">
-                                <img src="{{ $profiles[$i]->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
-                                <span>{{ $profiles[$i]->user->name }}</span>
+                    @for($i = 0; $i < count($usersRating); $i++)
+                        <p class="mb-2">
+                            <a href="/profile/{{ $usersRating[$i]['id'] }}">
+                                <img src="{{ $users->find($usersRating[$i]['id'])->profile->profileImage() }}" style="width: 15px;" class="rounded-circle">
+                                {{ $users->find($usersRating[$i]['id'])->name }}
                             </a>
-                            <br>
-                        @endfor
-                    </p>
+                            <span>&nbsp;</span>
+                            <span class="text-muted"><i class="bi bi-hand-thumbs-up"></i> {{ $usersRating[$i]['rating'] }}</span>
+                        </p>
+                    @endfor
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div style="margin-left: auto; margin-right: auto;">{{ $profiles->links() }}</div>
     </div>
 </div>
 @endsection

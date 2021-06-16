@@ -15,11 +15,13 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://tagin.netlify.app/css/tagin.min.css">
 </head>
 
 <body>
@@ -44,7 +46,7 @@
                         @guest
                         @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right"></i> {{ __('Login') }}</a>
                         </li>
                         @endif
 
@@ -58,7 +60,7 @@
                         <li class="nav-item">
                             <form class="form-inline my-2 my-lg-0" action="/search" id="searchForm">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Enter Search Phrase" aria-label="Search" name="q" required>
-                                <a class="nav-link" href="#" onclick="document.querySelector('#searchForm').submit()">Search</a>
+                                <a class="nav-link" href="#" onclick="document.querySelector('#searchForm').submit()"><i class="bi bi-search"></i> Search</a>
                                 <!-- <button class="btn btn-sm btn-outline-secondary" type="button" type="submit">Search</button> -->
                                 <!-- <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button> -->
                             </form>
@@ -69,15 +71,15 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/profile/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a>
+                            <a class="nav-link" href="/profile/{{ Auth::user()->id }}"><i class="bi bi-person"></i> {{ Auth::user()->name }}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/question/create">Ask Question</a>
+                            <a class="nav-link" href="/question/create"><i class="bi bi-patch-question"></i> Ask Question</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();  document.getElementById('logout-form').submit();">Log Out</a>
+                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();  document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right"></i> Log Out</a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf

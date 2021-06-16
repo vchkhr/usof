@@ -6,17 +6,19 @@
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "tagin";
 
-div.question {
+div.question,
+div.answer {
     padding: 20px;
     border: 1px solid rgba($blue, 0.4);
     border-radius: 10px;
 }
 
-a:hover div.question {
-    background-color: rgba(black, 0.015);
-}
-
 a.regularText:hover {
     text-decoration: none !important;
+}
+
+span.c-green {
+    color: $green;
 }

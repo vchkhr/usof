@@ -68,19 +68,22 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="deletePhoto" class="col-md-4 col-form-label text-md-right">Delete Profile Photo</label>
+                        @if($profile->profile_photo != null)
+                            <div class="form-group row">
+                                <label for="deletePhoto" class="col-md-4 col-form-label text-md-right">Delete Profile Photo</label>
 
-                            <div class="col-md-6">
-                                <input id="deletePhoto" type="checkbox" class="@error('deletePhoto') is-invalid @enderror" name="deletePhoto" value="" style="margin-top: 12px;">
+                                <div class="col-md-6">
+                                    <input id="deletePhoto" type="checkbox" class="@error('deletePhoto') is-invalid @enderror" name="deletePhoto" value="" style="margin-top: 12px;">
+                                    <img src="/storage/{{ $profile->profile_photo }}" style="max-width: 100px; border-radius: 5px;">
 
-                                @error('deletePhoto')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    @error('deletePhoto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">

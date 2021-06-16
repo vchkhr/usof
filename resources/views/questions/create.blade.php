@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<script src="https://tagin.netlify.app/js/tagin.min.js"></script>
+<script src="{{ URL::asset('js/tagin.js') }}"></script>
 <script>
     tagin(document.querySelector('#questionTags'))
 </script>

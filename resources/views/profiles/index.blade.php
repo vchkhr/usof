@@ -27,10 +27,21 @@
                                     <small class="text-muted">admin</small>
                                 @endif
 
+                                <small>
+                                    <span>&nbsp;</span>
+                                    <i class="bi bi-hand-thumbs-up"></i><span> {{ $rating }}</span>
+                                    <span>&nbsp;</span>
+                                    <i class="bi bi-patch-question"></i><span> {{ count($user->questions) }}</span>
+                                    <span>&nbsp;</span>
+                                    <i class="bi bi-vector-pen"></i><span> {{ count($user->answers) }}</span>
+                                </small>
+
                                 <span class="mr-2"></span>
                             </h3>
 
-                            <h5>Rating:  {{ $rating }} | Questions: {{ count($user->questions) }} | Answers: {{ count($user->answers) }}</h5>
+                            <h5>
+                                
+                            </h5>
 
                             <p class="@if($user->profile->url != null) mb-0 @endif">{{ $user->profile->description }}</p>
 

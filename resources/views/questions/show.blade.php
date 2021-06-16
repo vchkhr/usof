@@ -8,82 +8,87 @@
                 <div class="card-header">Question #{{ $question->id }}</div>
 
                 <div class="card-body">
-                    <h3>
-                        <span>{{ $question->title }}</span>
+                    <a href="/question/{{ $question->id }}" class="regularText">
+                        <div class="question d-flex mb-3">
+                            <div class="mr-2">
+                                <img src="{{ $question->user->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
+                            </div>
 
-                        @if ($question->solved == 1)
-                            <small class="text-muted">solved</small>
-                        @endif
-                    </h3>
+                            <div>
+                                <h5>
+                                    @if ($question->solved == 1)
+                                        <small class="text-muted"><span class="c-green"><i class="bi-check-circle-fill"></i></span></small>
+                                    @endif
 
-                    @if ($question->description != null)
-                        <p>{{ $question->description }}</p>
-                    @endif
+                                    <span>{{ $question->title }} &nbsp; &#x1F44D; {{ $rating }}</span>
 
-                    @if ($question->image != null)
-                        <a href="/storage/{{ $question->image }}" target="_blank">
-                            <img src="/storage/{{ $question->image }}" style="max-width: 100%; border-radius: 5px;">
-                        </a>
-                    @endif
+                                    @if(isset($user) && $user->id != $question->user_id)
+                                        @if(\App\Models\Like::where([['question_id', $question->id], ['user_id', $user->id]])->count() == 0)
+                                            <a href="/like/create?question={{ $question->id }}&is_like=1"><i class="bi bi-caret-up"></i></a>
+                                            <a href="/like/create?question={{ $question->id }}&is_like=0"><i class="bi bi-caret-down"></i></a>
+                                        @else
+                                            @if(\App\Models\Like::where([['question_id', $question->id], ['user_id', $user->id]])->get()[0]->is_like == 1)
+                                                <a href="/like/create?question={{ $question->id }}&is_like=1"><i class="bi bi-caret-up-fill"></i></a>
+                                                <a href="/like/create?question={{ $question->id }}&is_like=0"><i class="bi bi-caret-down"></i></a>
+                                            @else
+                                                <a href="/like/create?question={{ $question->id }}&is_like=1"><i class="bi bi-caret-up"></i></a>
+                                                <a href="/like/create?question={{ $question->id }}&is_like=0"><i class="bi bi-caret-down-fill"></i></a>
+                                            @endif
+                                        @endif
+                                    @endif
+                                </h5>
 
-                    <p class="mt-4 mb-0">
-                        <a href="/profile/{{ $question->user_id }}">
-                            <img src="{{ $question->user->profile->profileImage() }}" style="width: 1em; margin-bottom: 2px;" class="rounded-circle">
+                                <p>{{ $question->description }}</p>
 
-                            <span>{{ $question->user->name }}</span>
-                        </a>
-
-                        <span>@ {{ $question->created_at }}</span>
-                    </p>
-
-                    @if ($question->tags != null)
-                        <p>
-                            @foreach($tags as $tag)
-                                <a href="/tag/{{ $tag }}" class="mr-2"><small class="text-muted">#</small><span>{{ $tag }}</span></a>
-                            @endforeach
-                        </p>
-                    @endif
-
-                    <p>
-                        <span>Rating:</span>
-                        <span>{{ $rating }}</span>
-
-                        @if(isset($user) && $user->id != $question->user_id)
-                            @if(\App\Models\Like::where([['question_id', $question->id], ['user_id', $user->id]])->count() == 0)
-                                <a href="/like/create?question={{ $question->id }}&is_like=1">like</a>
-                                <a href="/like/create?question={{ $question->id }}&is_like=0">dislike</a>
-                            @else
-                                @if(\App\Models\Like::where([['question_id', $question->id], ['user_id', $user->id]])->get()[0]->is_like == 1)
-                                    <a href="/like/create?question={{ $question->id }}&is_like=1">unlike</a>
-                                    <a href="/like/create?question={{ $question->id }}&is_like=0">dislike</a>
-                                @else
-                                    <a href="/like/create?question={{ $question->id }}&is_like=1">like</a>
-                                    <a href="/like/create?question={{ $question->id }}&is_like=0">undislike</a>
+                                @if ($question->image != null)
+                                    <a href="/storage/{{ $question->image }}" target="_blank">
+                                        <img src="/storage/{{ $question->image }}" style="max-width: 100%; border-radius: 5px;">
+                                    </a>
                                 @endif
-                            @endif
-                        @endif
-                    </p>
+
+                                <p class="mb-0">
+                                    <a href="/profile/{{ $question->user_id }}">
+                                        <i class="bi bi-person"></i>
+                                        <span>{{ $question->user->name }}</span>
+                                        </a>
+                                    <span>&nbsp;</span>
+                                    <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($question->created_at)) }}</span>
+                                    <span>&nbsp;</span>
+                                    <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $question->id }}</span>
+                                </p>
+                                
+                                @if ($question->tags != null)
+                                    <p class="mb-0">
+                                        <i class="bi bi-tags"></i>
+                                        @foreach(explode(",", $question->tags) as $tag)
+                                            <a href="/tag/{{ $tag }}"><small class="text-muted">#</small><span>{{ $tag }}</span></a>
+                                        @endforeach
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                    </a>
 
                     @if (isset($user) && $question->solved == 0)
-                        <a href="/answer/create?question={{ $question->id }}" class="btn btn-outline-success" role="button" data-bs-toggle="button">Answer Question</a>
+                        <a href="/answer/create?question={{ $question->id }}" class="btn btn-outline-success" role="button" data-bs-toggle="button"><i class="bi bi-vector-pen"></i> Answer Question</a>
 
                         @if (isset($user) && $question->user_id == $user['id'])
-                            <a href="/question/{{ $question->id }}/edit" class="btn btn-outline-primary" role="button" data-bs-toggle="button">Edit Question</a>
+                            <a href="/question/{{ $question->id }}/edit" class="btn btn-outline-primary" role="button" data-bs-toggle="button"><i class="bi bi-pencil-square"></i> Edit Question</a>
                         @endif
                     @endif
 
                     @if (isset($user) && ($question->user_id == $user['id'] || $user->is_admin == true))
                         @if ($question->solved == 0)
-                            <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-outline-warning" role="button" data-bs-toggle="button">Mark as Solved</a>
+                            <a href="/question/{{ $question->id }}/edit?markAsSolved=true" class="btn btn-outline-warning" role="button" data-bs-toggle="button"><span class="c-green"><i class="bi-check-circle-fill"></i></span> Mark as Solved</a>
                         @else
-                            <a href="/question/{{ $question->id }}/edit?markAsSolved=false" class="btn btn-outline-warning" role="button" data-bs-toggle="button">Mark as Unsolved</a>
+                            <a href="/question/{{ $question->id }}/edit?markAsSolved=false" class="btn btn-outline-warning" role="button" data-bs-toggle="button"><i class="bi bi-x-square"></i> Mark as Unsolved</a>
                         @endif
 
                         <form class="d-inline" method="POST" action="{{ route('question.destroy', ['id' => $question->id]) }}">
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit" class="btn btn-danger">Delete Question</button>
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Delete Question</button>
                         </form>
                     @endif
                 </div>
@@ -101,6 +106,61 @@
 
                 <div class="card-body">
                     <a name="answer-correct"></a>
+
+                    <div class="answer d-flex mb-3">
+                        <div class="mr-2">
+                            <img src="{{ $answerCorrectUser->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
+                        </div>
+
+                        <div>
+                            <p>
+                                <span>{{ $answerCorrect->description }} &nbsp; &#x1F44D; {{ $answerCorrect->rating }}</span>
+                                @if(isset($user) && $user->id != $answerCorrect->user_id)
+                                    @if(\App\Models\Like::where([['answer_id', $answerCorrect->id], ['user_id', $user->id]])->count() == 0)
+                                        <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}&is_like=1"><i class="bi bi-caret-up"></i></a>
+                                        <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}&is_like=0"><i class="bi bi-caret-down"></i></a>
+                                    @else
+                                        @if(\App\Models\Like::where([['answer_id', $answerCorrect->id], ['user_id', $user->id]])->get()[0]->is_like == 1)
+                                            <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}&is_like=1">unlike</a>
+                                            <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}&is_like=0">dislike</a>
+                                        @else
+                                            <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}&is_like=1">like</a>
+                                            <a href="/like/create?question={{ $question->id }}&answer={{ $answerCorrect->id }}&is_like=0">undislike</a>
+                                        @endif
+                                    @endif
+                                @endif
+                            </p>
+
+                            @if ($answerCorrect->image != null)
+                                <a href="/storage/{{ $answerCorrect->image }}" target="_blank">
+                                    <img src="/storage/{{ $answerCorrect->image }}" style="max-width: 100px; border-radius: 5px;">
+                                </a>
+                            @endif
+
+                            <p class="mb-0">
+                                <a href="/profile/{{ $answerCorrectUser->id }}">
+                                    <i class="bi bi-person"></i>
+                                    <span>{{ $answerCorrectUser->profile->user->name }}</span>
+                                    </a>
+                                <span>&nbsp;</span>
+                                <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($answerCorrect->created_at)) }}</span>
+                                <span>&nbsp;</span>
+                                <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $answerCorrect->id }}</span>
+                            </p>
+                            
+                            @if ($answerCorrect->tags != null)
+                                <p class="mb-0">
+                                    <i class="bi bi-tags"></i>
+                                    @foreach(explode(",", $answerCorrect->tags) as $tag)
+                                        <a href="/tag/{{ $tag }}"><small class="text-muted">#</small><span>{{ $tag }}</span></a>
+                                    @endforeach
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
+
+
 
                     <p>{{ $answerCorrect->description }}</p>
 

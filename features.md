@@ -16,6 +16,7 @@ Extra features:
 11. Profile's site, unsecure external website.
 12. Admin can mark questions as solved and select best answer.
 13. Admin can delete questions and answers.
+14. Number of views (todo)
 
 Basic features:
 1. Account: create, email confirmation, log in, log out, reset password, delete (with all content).
