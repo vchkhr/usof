@@ -19,6 +19,21 @@ class QuestionsController extends Controller
         return view('questions/create');
     }
 
+    public function checkTags($tags) {
+        if ($tags != null) {
+            $allTags = str_replace(" ", "-", $tags);
+            $tagsArr = array();
+
+            foreach(explode(",", $allTags) as $tag) {
+                array_push($tagsArr, preg_replace('/[^A-Za-z0-9\-]/', '', $tag));
+            }
+
+            $tags = implode(",", $tagsArr);
+        }
+
+        return $tags;
+    }
+
     public function store(Question $question)
     {
         $data = request()->validate([
@@ -35,9 +50,7 @@ class QuestionsController extends Controller
             $imagePath = null;
         }
 
-        if ($data['tags'] != null) {
-            $data['tags'] = str_replace(" ", "-", $data['tags']);
-        }
+        $data['tags'] = $this->checkTags($data['tags']);
 
         auth()->user()->questions()->create([
             'title' => $data['title'],
@@ -148,9 +161,7 @@ class QuestionsController extends Controller
             }
         }
 
-        if ($data['tags'] != null) {
-            $data['tags'] = str_replace(" ", "-", $data['tags']);
-        }
+        $data['tags'] = $this->checkTags($data['tags']);
 
         $q->update($data);
 
