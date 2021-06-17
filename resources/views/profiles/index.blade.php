@@ -95,7 +95,7 @@
                                             <span>{{ $user->name }}</span>
                                             </a>
                                         <span>&nbsp;</span>
-                                        <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($user->questions[$i]['created_at'])) }}</span>
+                                        <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($user->questions[$i]['created_at'])) }}&nbsp;{{ date("a", strtotime($user->questions[$i]['created_at'])) }}</span>
                                         <span>&nbsp;</span>
                                         <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $user->questions[$i]['id'] }}</span>
                                     </p>

@@ -51,7 +51,7 @@
                                     <span>{{ $question->user->name }}</span>
                                     </a>
                                 <span>&nbsp;</span>
-                                <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($question->created_at)) }}</span>
+                                <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($question->created_at)) }}&nbsp;{{ date("a", strtotime($question->created_at)) }}</span>
                                 <span>&nbsp;</span>
                                 <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $question->id }}</span>
                             </p>
@@ -144,7 +144,7 @@
                                         <span>{{ $answerCorrectUser->profile->user->name }}</span>
                                         </a>
                                     <span>&nbsp;</span>
-                                    <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($answerCorrect->created_at)) }}</span>
+                                    <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($answerCorrect->created_at)) }}&nbsp;{{ date("a", strtotime($answerCorrect->created_at)) }}</span>
                                     <span>&nbsp;</span>
                                     <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $answerCorrect->id }}</span>
                                 </p>
@@ -245,7 +245,7 @@
                                         <span>{{ App\Http\Controllers\QuestionsController::getUser($question, $i)->name }}</span>
                                         </a>
                                     <span>&nbsp;</span>
-                                    <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($question->answers[$i]->created_at)) }}</span>
+                                    <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($question->answers[$i]->created_at)) }}&nbsp;{{ date("a", strtotime($question->answers[$i]->created_at)) }}</span>
                                     <span>&nbsp;</span>
                                     <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $question->answers[$i]->id }}</span>
                                 </p>

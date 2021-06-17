@@ -17,8 +17,8 @@ class QuestionSeeder extends Seeder
             'user_id' => 1,
             'solved' => 1,
             'correct_answer_id' => 1,
-            'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'created_at' => '2021-06-01 13:15:01',
+            'updated_at' => '2021-06-01 13:15:01'
         ]);
 
         DB::table('questions')->insert([
@@ -26,8 +26,8 @@ class QuestionSeeder extends Seeder
             'description' => 'I\'m trying to create a GUI in TraitsUI that includes two Mayavi figures. I have implemented these figures as per the multiple engines example in the Mayavi documentation.',
             'tags' => 'python,enthought,mayavi,traitsui',
             'user_id' => 1,
-            'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'created_at' => '2021-06-02 12:42:01',
+            'updated_at' => '2021-06-02 12:42:01'
         ]);
 
         DB::table('questions')->insert([
@@ -35,8 +35,8 @@ class QuestionSeeder extends Seeder
             'description' => 'I\'m using Mayavi to render some imaging data that consists of multiple 2D planes within a 3D volume, the position, orientation, and scale of which are defined by 4x4 rigid body affine transformation matrices.',
             'tags' => 'python,transformation,mayavi',
             'user_id' => 1,
-            'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'created_at' => '2021-06-03 19:24:01',
+            'updated_at' => '2021-06-03 19:24:01'
         ]);
 
         DB::table('questions')->insert([
@@ -45,8 +45,8 @@ class QuestionSeeder extends Seeder
             'tags' => 'python,python-3.6,python-sphinx,autodoc,sphinx-napoleon',
             'user_id' => 2,
             'solved' => 1,
-            'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'created_at' => '2021-06-04 18:03:01',
+            'updated_at' => '2021-06-04 18:03:01'
         ]);
 
         DB::table('questions')->insert([
@@ -54,8 +54,8 @@ class QuestionSeeder extends Seeder
             'description' => 'I have a very large tensorflow graph, and two sets of variables: A and B.',
             'tags' => 'python,tensorflow',
             'user_id' => 2,
-            'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'created_at' => '2021-06-05 12:04:01',
+            'updated_at' => '2021-06-05 12:04:01'
         ]);
 
         DB::table('questions')->insert([
@@ -63,8 +63,8 @@ class QuestionSeeder extends Seeder
             'description' => 'I need to retrieve the position and attitude angles of a camera (using OpenCV / Python).',
             'tags' => 'python,opencv-solvepnp',
             'user_id' => 3,
-            'created_at' => '2000-01-01 00:00:01',
-            'updated_at' => '2000-01-01 00:00:01'
+            'created_at' => '2021-06-06 08:09:01',
+            'updated_at' => '2021-06-06 08:09:01'
         ]);
     }
 }

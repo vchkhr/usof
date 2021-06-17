@@ -41,7 +41,7 @@
                                             <span>{{ $users->find($questionsRating[$i]['user_id'])->name }}</span>
                                             </a>
                                         <span>&nbsp;</span>
-                                        <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($questionsRating[$i]['created_at'])) }}</span>
+                                        <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($questionsRating[$i]['created_at'])) }}&nbsp;{{ date("a", strtotime($questionsRating[$i]['created_at'])) }}</span>
                                         <span>&nbsp;</span>
                                         <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $questionsRating[$i]['id'] }}</span>
                                     </p>
