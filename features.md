@@ -1,4 +1,5 @@
-DELETE IMAGES
+1. Update all image uploaders and readers.
+2. Delete images.
 
 Doc:
 4. Sorting and filtering.

@@ -117,9 +117,9 @@ class HomeController extends Controller
         return view('home', compact('allTags', 'questionsRating', 'usersRating', 'users'));
     }
 
-    public static function calculateHome($questionsRating, $i) {
-        $res = Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 1]])->count();
-        $res -= Like::where([['question_id', $questionsRating[$i]['id']], ['is_like', 0]])->count();
+    public static function calculateHome($questions, $i) {
+        $res = Like::where([['question_id', $questions[$i]['id']], ['is_like', 1]])->count();
+        $res -= Like::where([['question_id', $questions[$i]['id']], ['is_like', 0]])->count();
 
         return $res;
     }

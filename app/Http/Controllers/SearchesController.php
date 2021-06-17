@@ -29,11 +29,13 @@ class SearchesController extends Controller
             $errorCode = 2;
         }
         else {
+            $searchProcess = trim(strtolower($search));
+
             foreach($questionsAll as $question) {
                 $title = strtolower($question->title);
                 $description = strtolower($question->description);
                 
-                if (strpos($title, strtolower($search)) !== false || strpos($description, strtolower($search)) !== false) {
+                if (strpos($title, $searchProcess) !== false || strpos($description, $searchProcess) !== false) {
                     array_push($questions, $question);
                     
                     break;
@@ -44,7 +46,7 @@ class SearchesController extends Controller
                     foreach($answers as $answer) {
                         $description = strtolower($answer->description);
                         
-                        if (strpos($description, strtolower($search)) !== false) {
+                        if (strpos($description, $searchProcess) !== false) {
                             array_push($questions, $question);
                     
                             break;

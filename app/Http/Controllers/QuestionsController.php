@@ -19,21 +19,6 @@ class QuestionsController extends Controller
         return view('questions/create');
     }
 
-    public function checkTags($tags) {
-        if ($tags != null) {
-            $allTags = str_replace(" ", "-", $tags);
-            $tagsArr = array();
-
-            foreach(explode(",", $allTags) as $tag) {
-                array_push($tagsArr, preg_replace('/[^A-Za-z0-9\-]/', '', $tag));
-            }
-
-            $tags = implode(",", $tagsArr);
-        }
-
-        return $tags;
-    }
-
     public function store(Question $question)
     {
         $data = request()->validate([
@@ -74,15 +59,18 @@ class QuestionsController extends Controller
         $answerCorrect = $question->answers->where('id', $question->correct_answer_id)->first();
 
         if ($answerCorrect != null) {
+            $answerCorrectBool = true;
             $answerCorrectUser = User::where('id', $answerCorrect->user_id)->get()[0];
             $answerCorrectRating = Like::where([['answer_id', $answerCorrect->id], ['is_like', 1]])->count();
             $answerCorrectRating -= Like::where([['answer_id', $answerCorrect->id], ['is_like', 0]])->count();
         } else {
-            $answerCorrectUser = null;
-            $answerCorrectRating = null;
+            $answerCorrectBool = false;
+            $answerCorrect = $question->answers->first();
+            $answerCorrectUser = User::all()->first();
+            $answerCorrectRating = 0;
         }
 
-        return view('questions.show', compact('question', 'user', 'answerCorrect', 'answerCorrectUser', 'answerCorrectRating', 'tags', 'rating'));
+        return view('questions.show', compact('question', 'user', 'answerCorrectBool', 'answerCorrect', 'answerCorrectUser', 'answerCorrectRating', 'tags', 'rating'));
     }
 
     public function index()
@@ -209,5 +197,20 @@ class QuestionsController extends Controller
         $res -= Like::where([['answer_id', $question->answers[$i]->id], ['is_like', 0]])->count();
 
         return $res;
+    }
+
+    public function checkTags($tags) {
+        if ($tags != null) {
+            $allTags = str_replace(" ", "-", $tags);
+            $tagsArr = array();
+
+            foreach(explode(",", $allTags) as $tag) {
+                array_push($tagsArr, preg_replace('/[^A-Za-z0-9\-]/', '', $tag));
+            }
+
+            $tags = implode(",", $tagsArr);
+        }
+
+        return $tags;
     }
 }

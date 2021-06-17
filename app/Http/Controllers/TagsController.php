@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\User;
 
 class TagsController extends Controller
 {
@@ -51,6 +52,11 @@ class TagsController extends Controller
                     array_push($questions, [
                         'id' => $question->id,
                         'title' => $question->title,
+                        'description' => $question->description,
+                        'solved' => $question->solved,
+                        'tags' => $question->tags,
+                        'user_id' => $question->user_id,
+                        'created_at' => $question->created_at,
                     ]);
                 }
             }
@@ -58,7 +64,8 @@ class TagsController extends Controller
 
         return view('tags.show', [
             'questions' => $questions,
-            'tag' => $tagSearch
+            'tag' => $tagSearch,
+            'users' => User::all()
         ]);
     }
 }

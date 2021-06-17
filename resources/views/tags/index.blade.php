@@ -12,21 +12,15 @@
                         <p>No tags yet</p>
                     @endif
 
-                    <ul>
-                        @for($i = 0; $i < count($allTags); $i++)
-                            <li>
-                                <a href="/tag/{{ $allTags[$i]['name'] }}">{{ $allTags[$i]['name'] }}</a>
+                    @for($i = 0; $i < count($allTags); $i++)
+                        <p class="mb-2">
+                                <a href="/tag/{{ $allTags[$i]['name'] }}"><small class="text-muted">#</small><span>{{ $allTags[$i]['name'] }}</span></a>
+                                <span>&nbsp;</span>
                                 <span class="text-muted">
-                                    <span>{{ $allTags[$i]['count'] }} </span>
-                                @if($allTags[$i]['count'] <= 1)
-                                    <span>question</span>
-                                @else
-                                    <span>questions</span>
-                                @endif
+                                    <span><i class="bi bi-patch-question"></i> {{ $allTags[$i]['count'] }}</span>
                                 </span>
-                            </li>
-                        @endfor
-                    </ul>
+                            </p>
+                    @endfor
                 </div>
             </div>
         </div>

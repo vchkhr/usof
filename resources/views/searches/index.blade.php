@@ -25,7 +25,7 @@
                     @endif
 
                     @for($i = 0; $i < count($questions); $i++)
-                        <a href="/question/{{ $questions[$i]['id'] }}" class="regularText">
+                        <a href="/question/{{ $questions[$i]['id'] }}">
                             <div class="question d-flex mb-3">
                                 <div class="mr-2">
                                     <img src="{{ $users->find($questions[$i]['user_id'])->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
