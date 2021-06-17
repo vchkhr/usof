@@ -66,9 +66,9 @@
                             </form>
                         </li>
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link disabled" href="#">|</a>
-                        </li>
+                        </li> -->
 
                         <li class="nav-item">
                             <a class="nav-link" href="/profile/{{ Auth::user()->id }}"><i class="bi bi-person"></i> {{ Auth::user()->name }}</a>

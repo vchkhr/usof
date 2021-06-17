@@ -15,6 +15,10 @@
                     <div>
                         <h3>&#x1F525; Questions</h3>
 
+                        <div class="row justify-content-center">
+                            <a class="btn btn-primary btn-lg" href="/question/create"><i class="bi bi-patch-question"></i> Ask Question</a>
+                        </div>
+
                         @if(count($questionsRating) == 0)
                             <p>No questions yet</p>
                         @endif
@@ -60,7 +64,7 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <a class="btn btn-outline-primary mb-5" href="/questions">All Questions</a>
+                        <a class="btn btn-outline-primary mb-5" href="/questions"><i class="bi bi-border-all"></i> All Questions</a>
                     </div>
 
                     <div>
@@ -82,7 +86,7 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <a class="btn btn-outline-primary mb-5" href="/tags">All Tags</a>
+                        <a class="btn btn-outline-primary mb-5" href="/tags"><i class="bi bi-border-all"></i> All Tags</a>
                     </div>
 
                     <div>
@@ -105,7 +109,7 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <a class="btn btn-outline-primary mb-5" href="/profiles">All Profiles</a>
+                        <a class="btn btn-outline-primary mb-5" href="/profiles"><i class="bi bi-border-all"></i> All Profiles</a>
                     </div>
                 </div>
             </div>
