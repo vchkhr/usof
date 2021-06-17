@@ -6,6 +6,9 @@ use App\Models\User;
 use App\Models\Question;
 use App\Models\Answer;
 use App\Models\Like;
+use App\Models\Image;
+
+use Illuminate\Support\Facades\Storage;
 
 class QuestionsController extends Controller
 {
@@ -30,7 +33,16 @@ class QuestionsController extends Controller
         ]);
 
         if (array_key_exists('image', $data) == true) {
-            $imagePath = request('image')->store('uploads', 'public');
+            // $imagePath = request('image')->store('uploads', 'public');
+
+            $path = request('image')->storePublicly('images', 's3');
+
+            $image = Image::create([
+                'filename' => basename($path),
+                'url' => Storage::disk('s3')->url($path)
+            ]);
+
+            $imagePath = $image->id;
         } else {
             $imagePath = null;
         }
@@ -52,6 +64,7 @@ class QuestionsController extends Controller
     {
         $user = auth()->user();
         $tags = explode(",", $question->tags);
+        $images = Image::all();
 
         $rating = Like::where([['question_id', $question->id], ['is_like', 1]])->count();
         $rating -= Like::where([['question_id', $question->id], ['is_like', 0]])->count();
@@ -70,7 +83,7 @@ class QuestionsController extends Controller
             $answerCorrectRating = 0;
         }
 
-        return view('questions.show', compact('question', 'user', 'answerCorrectBool', 'answerCorrect', 'answerCorrectUser', 'answerCorrectRating', 'tags', 'rating'));
+        return view('questions.show', compact('question', 'user', 'answerCorrectBool', 'answerCorrect', 'answerCorrectUser', 'answerCorrectRating', 'tags', 'rating', 'images'));
     }
 
     public function index()
@@ -84,6 +97,7 @@ class QuestionsController extends Controller
     public function edit(User $user, Question $question)
     {
         $q = Question::find($question['id']);
+        $image = Image::find($q->image)->url;
 
         if (auth()->user()->is_admin == false && auth()->user()->id != $q->user_id) {
             abort(403);
@@ -100,7 +114,7 @@ class QuestionsController extends Controller
             return redirect("/question/{$question['id']}#answer-" . request()->query('correctAnswerId'));
         }
 
-        return view('questions.edit', compact('user', 'question'));
+        return view('questions.edit', compact('user', 'question', 'image'));
     }
 
     public function update(User $user, Question $question)
@@ -143,7 +157,16 @@ class QuestionsController extends Controller
             unset($data['deleteImage']);
         } else {
             if (array_key_exists('image', $data) == true) {
-                $data['image'] = request('image')->store('uploads', 'public');
+                // $data['image'] = request('image')->store('uploads', 'public');
+
+                $path = request('image')->storePublicly('images', 's3');
+
+                $image = Image::create([
+                    'filename' => basename($path),
+                    'url' => Storage::disk('s3')->url($path)
+                ]);
+
+                $data['image'] = $image->id;
             } else {
                 $data['image'] = $q->image;
             }

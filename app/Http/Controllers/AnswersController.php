@@ -57,6 +57,7 @@ class AnswersController extends Controller
     public function edit(User $user, Answer $answer)
     {
         $a = Answer::find($answer['id']);
+        $image = Image::find($a->image)->url;
 
         if (auth()->user()->is_admin == false && auth()->user()->id != $a->user_id) {
             abort(403);
@@ -66,7 +67,7 @@ class AnswersController extends Controller
             abort(403);
         }
 
-        return view('answers.edit', compact('user', 'answer'));
+        return view('answers.edit', compact('user', 'answer', 'image'));
     }
 
     public function update(User $user, Answer $answer)
@@ -95,7 +96,16 @@ class AnswersController extends Controller
         }
         else {
             if (array_key_exists('image', $data) == true) {
-                $data['image'] = request('image')->store('uploads', 'public');
+                // $data['image'] = request('image')->store('uploads', 'public');
+
+                $path = request('image')->storePublicly('images', 's3');
+                    
+                $image = Image::create([
+                    'filename' => basename($path),
+                    'url' => Storage::disk('s3')->url($path)
+                ]);
+    
+                $data['image'] = $image->id;
             }
             else {
                 $data['image'] = $a->image;
