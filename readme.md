@@ -1,4 +1,5 @@
 # [USOF](http://usof.vchkhr.com/)
+Service of questions and answers for programmers.
 
 ## Features
 Basic features:

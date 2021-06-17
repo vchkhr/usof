@@ -151,6 +151,10 @@ class QuestionsController extends Controller
         ]);
 
         if (array_key_exists('deleteImage', $data) == true) {
+            $image = Image::find($question->image);
+            Storage::disk('s3')->delete('images/' . $image->filename);
+            $image->delete();
+            
             $data['image'] = null;
 
             unset($data['deleteImage']);
