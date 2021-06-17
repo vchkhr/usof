@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class PageTests extends TestCase
 {
-    public function test_example()
+    public function test_basic_pages()
     {
         $response = $this->get('/');
         $response->assertStatus(302);

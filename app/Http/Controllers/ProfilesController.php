@@ -135,6 +135,10 @@ class ProfilesController extends Controller
         ]);
 
         if (array_key_exists('deletePhoto', $data) == true) {
+            $image = Image::find($user->profile->profile_photo);
+            Storage::disk('s3')->delete('images/' . $image->filename);
+            $image->delete();
+
             $data['profile_photo'] = null;
         }
         else {
