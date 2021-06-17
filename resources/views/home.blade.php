@@ -2,6 +2,24 @@
 
 @section('content')
 
+@if(!auth()->user())
+    <div class="container mb-3">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Welcome to USOF</div>
+                    
+                    <div class="card-body">
+                        <h2 class="center mt-2 mb-2">Welcome to <stron>USOF</strong> - Service of questions and answers for programmers</h2>
+
+                        <p class="center"><a href="/register">Register</a> or <a href="/login">Login</a> to Ask your first Question.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -15,9 +33,11 @@
                     <div>
                         <h3>&#x1F525; Questions</h3>
 
-                        <div class="row justify-content-center">
-                            <a class="btn btn-primary btn-lg" href="/question/create"><i class="bi bi-patch-question"></i> Ask Question</a>
-                        </div>
+                        @if(auth()->user())
+                            <div class="row justify-content-center">
+                                <a class="btn btn-primary btn-lg" href="/question/create"><i class="bi bi-patch-question"></i> Ask Question</a>
+                            </div>
+                        @endif
 
                         @if(count($questionsRating) == 0)
                             <p>No questions yet</p>

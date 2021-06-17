@@ -7,11 +7,6 @@ use App\Models\User;
 
 class TagsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-
     public function index()
     {
         $questions = Question::all();

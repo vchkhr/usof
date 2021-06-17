@@ -60,7 +60,7 @@
                                 </p>
                             @endif
 
-                            @if(auth()->user()->is_admin == true || $user->id == auth()->user()->id)
+                            @if(auth()->user() && (auth()->user()->is_admin == true || $user->id == auth()->user()->id))
                                 <a href="/profile/{{ $user->id }}/edit" class="btn btn-primary mb-3" role="button" data-bs-toggle="button">Edit Profile</a>
                             @endif
                         </div>

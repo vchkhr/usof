@@ -7,11 +7,6 @@ use App\Models\User;
 
 class SearchesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-
     public function index()
     {
         $users = User::all();

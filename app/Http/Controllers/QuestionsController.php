@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class QuestionsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-
     public function create()
     {
         return view('questions/create');
