@@ -9,11 +9,6 @@ use App\Models\Like;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-
     public function index()
     {
         $user = \Auth::user();
