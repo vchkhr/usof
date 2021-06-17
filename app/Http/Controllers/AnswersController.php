@@ -126,7 +126,15 @@ class AnswersController extends Controller
             abort(403);
         }
 
-        Like::where('answer_id', $id)->delete();
+        foreach(Like::where('answer_id', $id)->get() as $like) {
+            app('App\Http\Controllers\LikesController')->destroy($like->id);
+        }
+
+        if ($answer->image != null) {
+            $image = Image::find($answer->image);
+            Storage::disk('s3')->delete('images/' . $image->filename);
+            $image->delete();
+        }
 
         $answer->delete();
 

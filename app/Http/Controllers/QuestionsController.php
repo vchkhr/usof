@@ -97,7 +97,11 @@ class QuestionsController extends Controller
     public function edit(User $user, Question $question)
     {
         $q = Question::find($question['id']);
-        $image = Image::find($q->image)->url;
+
+        $image = null;
+        if($q->image != null) {
+            $image = Image::find($q->image)->url;
+        }
 
         if (auth()->user()->is_admin == false && auth()->user()->id != $q->user_id) {
             abort(403);
@@ -187,14 +191,20 @@ class QuestionsController extends Controller
             abort(403);
         }
 
-        $answers = Answer::where('question_id', $id)->get();
-
-        foreach ($answers as $answer) {
-            Like::where('answer_id', $answer->id)->delete();
-            $answer->delete();
+        if ($question->image != null) {
+            $image = Image::find($question->image);
+            Storage::disk('s3')->delete('images/' . $image->filename);
+            $image->delete();
         }
 
-        Like::where('question_id', $question->id)->delete();
+        foreach(Like::where('question_id', $question->id)->get() as $like) {
+            app('App\Http\Controllers\LikesController')->destroy($like->id);
+        }
+
+        foreach(Answer::where('question_id', $id)->get() as $answer) {
+            app('App\Http\Controllers\AnswersController')->destroy($answer->id);
+        }
+
         $question->delete();
 
         return redirect()->route('home');

@@ -104,4 +104,10 @@ class LikesController extends Controller
             }
         }
     }
+
+    public function destroy($id) {
+        Like::where('id', $id)->delete();
+
+        return redirect()->route('home');
+    }
 }

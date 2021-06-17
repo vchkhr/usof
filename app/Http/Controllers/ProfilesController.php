@@ -116,14 +116,21 @@ class ProfilesController extends Controller
 
     public function edit(User $user, Profile $profile)
     {
-        $this->authorize("update", $user->profile);
-        $profile = auth()->user()->profile;
+        if (auth()->user()->is_admin == false && auth()->user()->id != $user->id) {
+            abort(403);
+        }
+
+        $profile = $user->profile;
 
         return view('profiles.edit', compact('user', 'profile'));
     }
 
     public function update(User $user)
     {
+        if (auth()->user()->is_admin == false && auth()->user()->id != $user->id) {
+            abort(403);
+        }
+
         $data = request()->validate([
             'real_name' => 'nullable',
             'description' => 'nullable',
@@ -148,26 +155,47 @@ class ProfilesController extends Controller
                 $data['profile_photo'] = $image->id;
             }
             else {
-                $data['profile_photo'] = auth()->user()->profile->profile_photo;
+                $data['profile_photo'] = $user->profile->profile_photo;
             }
         }
 
-        auth()->user()->profile->update($data);
+        $user->profile->update($data);
 
         return redirect("/profile/{$user->id}");
     }
 
     public function destroy()
     {
-        if (request()->username != auth()->user()->name) {
-            return redirect('/profile/' . auth()->user()->id . "/edit");
+        $user = User::where("id", request()->id)->first();
+
+        if (auth()->user()->is_admin == false && auth()->user()->id != $user->id) {
+            abort(403);
+        }
+        
+        if (request()->username != $user->name) {
+            return redirect('/profile/' . $user->id . "/edit");
         }
 
-        DB::table('profiles')->where('user_id', '=', auth()->user()->id)->delete();
-        DB::table('questions')->where('user_id', '=', auth()->user()->id)->delete();
-        DB::table('answers')->where('user_id', '=', auth()->user()->id)->delete();
-        DB::table('likes')->where('user_id', '=', auth()->user()->id)->delete();
-        DB::table('users')->where('id', '=', auth()->user()->id)->delete();
+        if ($user->profile->profile_photo != null) {
+            $image = Image::find($user->profile->profile_photo);
+            Storage::disk('s3')->delete('images/' . $image->filename);
+            $image->delete();
+        }
+
+        foreach(Question::where('user_id', $user->id)->get() as $question) {
+            app('App\Http\Controllers\QuestionsController')->destroy($question->id);
+        }
+
+        foreach(Answer::where('user_id', $user->id)->get() as $answer) {
+            app('App\Http\Controllers\AnswersController')->destroy($answer->id);
+        }
+
+        foreach(Like::where('user_id', $user->id)->get() as $like) {
+            app('App\Http\Controllers\LikesController')->destroy($like->id);
+        }
+
+        DB::table('profiles')->where('user_id', '=', $user->id)->delete();
+        DB::table('users')->where('id', '=', $user->id)->delete();
 
         return redirect()->route('login');
     }

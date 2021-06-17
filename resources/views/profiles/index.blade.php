@@ -60,9 +60,9 @@
                                 </p>
                             @endif
 
-                            @can('update', $user->profile)
+                            @if(auth()->user()->is_admin == true || $user->id == auth()->user()->id)
                                 <a href="/profile/{{ $user->id }}/edit" class="btn btn-primary mb-3" role="button" data-bs-toggle="button">Edit Profile</a>
-                            @endcan
+                            @endif
                         </div>
                     </div>
 
@@ -73,11 +73,44 @@
                             <p>No questions yet</p>
                         @endif
                         
-                        <ul>
-                            @for ($i = count($user->questions) - 1; $i >= 0; $i--)
-                                <li><a href="/question/{{ $user->questions[$i]->id }}">{{ $user->questions[$i]->title }}</a> @ {{ $user->questions[$i]->created_at }}</li>
-                            @endfor
-                        </ul>
+                        @for ($i = count($user->questions) - 1; $i >= 0; $i--)
+                            <div class="question d-flex mt-3 mb-3">
+                                <div class="mr-2">
+                                    <img src="{{ $user->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
+                                </div>
+
+                                <div>
+                                    <h5>
+                                        @if ($user->questions[$i]['solved'] == 1)
+                                            <small class="text-muted"><span class="c-green"><i class="bi-check-circle-fill"></i></span></small>
+                                        @endif
+                                        <a href="/question/{{ $user->questions[$i]['id'] }}">{{ $user->questions[$i]['title'] }}</a> &nbsp; &#x1F44D; {{ App\Http\Controllers\HomeController::calculateHome($user->questions, $i) }}
+                                    </h5>
+
+                                    <p>{{ $user->questions[$i]['description'] }}</p>
+
+                                    <p class="mb-0">
+                                        <a href="/profile/{{ $user->questions[$i]['user_id'] }}">
+                                            <i class="bi bi-person"></i>
+                                            <span>{{ $user->name }}</span>
+                                            </a>
+                                        <span>&nbsp;</span>
+                                        <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i a",strtotime($user->questions[$i]['created_at'])) }}</span>
+                                        <span>&nbsp;</span>
+                                        <span title="Question ID"><i class="bi bi-puzzle"></i> {{ $user->questions[$i]['id'] }}</span>
+                                    </p>
+                                    
+                                    @if ($user->questions[$i]['tags'] != null)
+                                        <p class="mb-0">
+                                            <i class="bi bi-tags"></i>
+                                            @foreach(explode(",", $user->questions[$i]['tags']) as $tag)
+                                                <a href="/tag/{{ $tag }}"><small class="text-muted">#</small><span>{{ $tag }}</span></a>
+                                            @endforeach
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                        @endfor
                     </div>
                 </div>
             </div>
