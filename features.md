@@ -1,6 +1,3 @@
-- Fix links to questions.
-- Check order of questions.
-
 Doc:
 4. Sorting and filtering.
 

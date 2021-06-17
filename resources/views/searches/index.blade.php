@@ -25,7 +25,7 @@
                     @endif
 
                     @for($i = 0; $i < count($questions); $i++)
-                        <a href="/question/{{ $questions[$i]['id'] }}">
+                        
                             <div class="question d-flex mb-3">
                                 <div class="mr-2">
                                     <img src="{{ $users->find($questions[$i]['user_id'])->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
@@ -36,8 +36,7 @@
                                         @if ($questions[$i]['solved'] == 1)
                                             <small class="text-muted"><span class="c-green"><i class="bi-check-circle-fill"></i></span></small>
                                         @endif
-
-                                        {{ $questions[$i]['title'] }} &nbsp; &#x1F44D; {{ App\Http\Controllers\HomeController::calculateHome($questions, $i) }}
+                                        <span><a href="/question/{{ $questions[$i]['id'] }}">{{ $questions[$i]['title'] }}</a> &nbsp; &#x1F44D; {{ App\Http\Controllers\HomeController::calculateHome($questions, $i) }}</span>
                                     </h5>
 
                                     <p>{{ $questions[$i]['description'] }}</p>
@@ -63,7 +62,7 @@
                                     @endif
                                 </div>
                             </div>
-                        </a>
+                        
                     @endfor
 
                 </div>
