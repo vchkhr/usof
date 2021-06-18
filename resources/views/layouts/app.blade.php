@@ -44,7 +44,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <form class="form-inline my-2 my-lg-0" action="/search" id="searchForm">
+                            <form class="form-inline my-2 my-lg-0" action="{{ url('/search') }}" id="searchForm">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Enter Search Phrase" aria-label="Search" name="q" required>
                                 <a class="nav-link" href="#" onclick="document.querySelector('#searchForm').submit()"><i class="bi bi-search"></i> Search</a>
                             </form>

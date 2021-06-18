@@ -8,7 +8,7 @@
                 <div class="card-header">Edit Question #{{ $question->id }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/question/{{ $question->id }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ url('/question/' . $question->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
 
