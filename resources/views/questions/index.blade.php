@@ -14,7 +14,7 @@
                 <div class="card-header">Questions</div>
 
                 <div class="card-body">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="sortBy">Order</label>
                         <div class="btn-group ml-2" role="group">
                             <a type="button" 
@@ -33,7 +33,7 @@
                                 @endif
                             href="/questions?order=Oldest">Oldest First</a>
                         </div>
-                    </div>
+                    </div> -->
 
                     @if(count($questions) == 0)
                         <p>No questions yet</p>
