@@ -8,7 +8,7 @@
                 <div class="card-header">Answer Question #{{ $_GET['question'] }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('/answer') }}" enctype="multipart/form-data">
+                    <form method="POST" action="/answer" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">

@@ -29,9 +29,9 @@ class QuestionsController extends Controller
 
         if (array_key_exists('image', $data) == true) {
             // $imagePath = request('image')->store('uploads', 'public');
-            
+
             $path = request('image')->storePublicly('images', 's3');
-            
+
             $image = Image::create([
                 'filename' => basename($path),
                 'url' => Storage::disk('s3')->url($path)

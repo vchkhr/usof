@@ -8,7 +8,7 @@
                 <div class="card-header">Ask Question</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('/question') }}" enctype="multipart/form-data">
+                    <form method="POST" action="/question" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">

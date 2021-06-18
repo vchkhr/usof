@@ -65,19 +65,6 @@
                         @else
 
                         <li class="nav-item">
-                            <form class="form-inline my-2 my-lg-0" action="{{ url('/search') }}" id="searchForm">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Enter Search Phrase" aria-label="Search" name="q" required>
-                                <a class="nav-link" href="#" onclick="document.querySelector('#searchForm').submit()"><i class="bi bi-search"></i> Search</a>
-                                <!-- <button class="btn btn-sm btn-outline-secondary" type="button" type="submit">Search</button> -->
-                                <!-- <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button> -->
-                            </form>
-                        </li>
-
-                        <!-- <li class="nav-item">
-                            <a class="nav-link disabled" href="#">|</a>
-                        </li> -->
-
-                        <li class="nav-item">
                             <a class="nav-link" href="/profile/{{ Auth::user()->id }}"><i class="bi bi-person"></i> {{ Auth::user()->name }}</a>
                         </li>
 
