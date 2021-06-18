@@ -74,7 +74,9 @@
 
                                 <div class="col-md-6">
                                     <input id="deletePhoto" type="checkbox" class="@error('deletePhoto') is-invalid @enderror" name="deletePhoto" value="" style="margin-top: 12px;">
-                                    <img src="{{ $profile->profileImage() }}" style="max-width: 100px; border-radius: 5px;">
+                                    <a href="{{ $profile->profileImage() }}" target="_blank">
+                                        <img src="{{ $profile->profileImage() }}" style="max-width: 100px; border-radius: 5px;">
+                                    </a>
 
                                     @error('deletePhoto')
                                         <span class="invalid-feedback" role="alert">
