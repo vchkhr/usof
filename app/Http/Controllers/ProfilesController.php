@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfilesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
-
     public function index(User $user)
     {
         if ($user->profile == null) {
@@ -140,6 +135,10 @@ class ProfilesController extends Controller
         ]);
 
         if (array_key_exists('deletePhoto', $data) == true) {
+            $image = Image::find($user->profile->profile_photo);
+            Storage::disk('s3')->delete('images/' . $image->filename);
+            $image->delete();
+
             $data['profile_photo'] = null;
         }
         else {

@@ -89,6 +89,10 @@
                             @endif
                         </div>
                     </div>
+                            
+                    @if (!auth()->user())
+                        <p class="center mt-4">You should <a href="/register">Register</a> or <a href="/login">Login</a> to Answer this Question.</p>
+                    @endif
                 </div>
             </div>
         </div>
