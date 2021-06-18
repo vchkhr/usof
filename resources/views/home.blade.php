@@ -46,7 +46,7 @@
                         @for($i = 0; $i < count($questionsRating) && $i < 5; $i++)
                             <div class="question d-flex mt-3 mb-3">
                                 <div class="mr-2">
-                                    <img src="{{ $users->find($questionsRating[$i]['user_id'])->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
+                                    <img src="{{ $users->where('id', $questionsRating[$i]['user_id'])->first()->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
                                 </div>
 
                                 <div>
@@ -62,7 +62,7 @@
                                     <p class="mb-0">
                                         <a href="/profile/{{ $questionsRating[$i]['user_id'] }}">
                                             <i class="bi bi-person"></i>
-                                            <span>{{ $users->find($questionsRating[$i]['user_id'])->name }}</span>
+                                            <span>{{ $users->where('id', $questionsRating[$i]['user_id'])->first()->name }}</span>
                                             </a>
                                         <span>&nbsp;</span>
                                         <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($questionsRating[$i]['created_at'])) }}&nbsp;{{ date("a", strtotime($questionsRating[$i]['created_at'])) }}</span>
@@ -119,7 +119,7 @@
                         @for($i = 0; $i < count($usersRating) && $i < 10; $i++)
                             <p class="mb-2">
                                 <a href="/profile/{{ $usersRating[$i]['id'] }}">
-                                    <img src="{{ $users->find($usersRating[$i]['id'])->profile->profileImage() }}" style="width: 15px;" class="rounded-circle">
+                                    <img src="{{ $users->where('id', $usersRating[$i]['id'])->first()->profile->profileImage() }}" style="width: 15px;" class="rounded-circle">
                                     {{ $usersRating[$i]['name'] }}
                                 </a>
                                 <span>&nbsp;</span>

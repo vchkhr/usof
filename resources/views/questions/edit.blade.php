@@ -78,6 +78,7 @@
 
                             <div class="col-md-6">
                                 <input type="text" name="tags" class="form-control tagin" id="questionTags" value="{{ $question['tags'] }}" data-placeholder="" data-separator=",">
+                                <p><i class="bi bi-info-circle"></i> Separate tags by comma</p>
                             </div>
                         </div>
 

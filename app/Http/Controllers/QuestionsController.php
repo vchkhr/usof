@@ -83,10 +83,17 @@ class QuestionsController extends Controller
 
     public function index()
     {
-        $questions = Question::where("id", ">", "0")->paginate(10);
         $users = User::all();
 
-        return view('questions.index', compact('questions', 'users'));
+        $questions = Question::where("id", ">", "0")->orderBy("created_at", "DESC")->paginate(10);
+        $order = "newest";
+
+        if (request()->order == "Oldest") {
+            $questions = Question::where("id", ">", "0")->orderBy("created_at", "ASC")->paginate(10);
+            $order = "oldest";
+        }
+
+        return view('questions.index', compact('questions', 'order', 'users'));
     }
 
     public function edit(User $user, Question $question)

@@ -15,8 +15,8 @@
                     @for($i = 0; $i < count($usersRating); $i++)
                         <p class="mb-2">
                             <a href="/profile/{{ $usersRating[$i]['id'] }}">
-                                <img src="{{ $users->find($usersRating[$i]['id'])->profile->profileImage() }}" style="width: 15px;" class="rounded-circle">
-                                {{ $users->find($usersRating[$i]['id'])->name }}
+                                <img src="{{ $users->where('id', $usersRating[$i]['id'])->first()->profile->profileImage() }}" style="width: 15px;" class="rounded-circle">
+                                {{ $users->where('id', $usersRating[$i]['id'])->name }}
                             </a>
                             <span>&nbsp;</span>
                             <span class="text-muted"><i class="bi bi-hand-thumbs-up"></i> {{ $usersRating[$i]['rating'] }}</span>

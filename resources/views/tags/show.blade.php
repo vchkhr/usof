@@ -15,7 +15,7 @@
                     @for($i = 0; $i < count($questions); $i++)
                         <div class="question d-flex mt-3 mb-3">
                             <div class="mr-2">
-                                <img src="{{ $users->find($questions[$i]['user_id'])->first()->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
+                                <img src="{{ $users->where('id', $questions[$i]['user_id'])->first()->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
                             </div>
 
                             <div>
@@ -31,7 +31,7 @@
                                 <p class="mb-0">
                                     <a href="/profile/{{ $questions[$i]['user_id'] }}">
                                         <i class="bi bi-person"></i>
-                                        <span>{{ $users->find($questions[$i]['user_id'])->first()->name }}</span>
+                                        <span>{{ $users->where('id', $questions[$i]['user_id'])->first()->name }}</span>
                                         </a>
                                     <span>&nbsp;</span>
                                     <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($questions[$i]['created_at'])) }}&nbsp;{{ date("a", strtotime($questions[$i]['created_at'])) }}</span>

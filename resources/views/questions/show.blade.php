@@ -40,8 +40,8 @@
                             <p>{{ $question->description }}</p>
 
                             @if ($question->image != null)
-                                <a href="{{ $images->find($question->image)->url }}" target="_blank">
-                                    <img src="{{ $images->find($question->image)->url }}" style="max-width: 100%; border-radius: 5px;">
+                                <a href="{{ $images->where('id', $question->image)->first()->url }}" target="_blank">
+                                    <img src="{{ $images->where('id', $question->image)->first()->url }}" style="max-width: 100%; border-radius: 5px;">
                                 </a>
                             @endif
 
@@ -137,8 +137,8 @@
                                 </p>
 
                                 @if ($answerCorrect->image != null)
-                                    <a href="{{ $images->find($answerCorrect->image)->url }}" target="_blank">
-                                        <img src="{{ $images->find($answerCorrect->image)->url }}" style="max-width: 100px; border-radius: 5px;">
+                                    <a href="{{ $images->where('id', $answerCorrect->image)->first()->url }}" target="_blank">
+                                        <img src="{{ $images->where('id', $answerCorrect->image)->first()->url }}" style="max-width: 100px; border-radius: 5px;">
                                     </a>
                                 @endif
 
@@ -207,7 +207,7 @@
 
                         <div class="answer d-flex mb-3">
                             <div class="mr-2">
-                                <img src="{{ $answerCorrectUser->profile->profileImage() }}" style="width: 35px;" class="rounded-circle">
+                                <img src="{{ App\Http\Controllers\QuestionsController::getProfile($question, $i)->profileImage() }}" style="width: 35px;" class="rounded-circle">
                             </div>
 
                             <div>
@@ -237,8 +237,8 @@
 
                                 @if($question->answers[$i]->image != null)
                                     <p>
-                                        <a href="{{ $images->find($question->answers[$i]->image)->url }}" target="_blank">
-                                            <img src="{{ $images->find($question->answers[$i]->image)->url }}" style="max-width: 100px; border-radius: 5px;">
+                                        <a href="{{ $images->where('id', $question->answers[$i]->image)->first()->url }}" target="_blank">
+                                            <img src="{{ $images->where('id', $question->answers[$i]->image)->first()->url }}" style="max-width: 100px; border-radius: 5px;">
                                         </a>
                                     </p>
                                 @endif

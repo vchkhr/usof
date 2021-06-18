@@ -53,7 +53,7 @@
                                             <span style="color: red;">unsecure</span>
                                         @endif
 
-                                        @if($urlDomain != env('APP_NAME', ''))
+                                        @if($urlDomain != "usof.vchkhr.com")
                                             <span>external website</span>
                                         @endif
                                     </small>
