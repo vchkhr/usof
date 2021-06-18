@@ -36,17 +36,17 @@ class SearchesController extends Controller
                     break;
                 }
                 else {
-                    $answers = $question->answers;
+                    // $answers = $question->answers;
     
-                    foreach($answers as $answer) {
-                        $description = strtolower($answer->description);
+                    // foreach($answers as $answer) {
+                    //     $description = strtolower($answer->description);
                         
-                        if (strpos($description, $searchProcess) !== false) {
-                            array_push($questions, $question);
+                    //     if (strpos($description, $searchProcess) !== false) {
+                    //         array_push($questions, $question);
                     
-                            break;
-                        }
-                    }
+                    //         break;
+                    //     }
+                    // }
                 }
             }
         }

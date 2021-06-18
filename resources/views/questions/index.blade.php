@@ -58,7 +58,7 @@
                                 <p class="mb-0">
                                     <a href="/profile/{{ $questions[$i]['user_id'] }}">
                                         <i class="bi bi-person"></i>
-                                        <span>{{ $users->where('id', $questions[$i]['user_id'])->name }}</span>
+                                        <span>{{ $users->where('id', $questions[$i]['user_id'])->first()->name }}</span>
                                         </a>
                                     <span>&nbsp;</span>
                                     <span><i class="bi bi-clock"></i> {{ date("F j, Y, g:i", strtotime($questions[$i]['created_at'])) }}&nbsp;{{ date("a", strtotime($questions[$i]['created_at'])) }}</span>
