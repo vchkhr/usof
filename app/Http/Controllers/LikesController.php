@@ -39,6 +39,8 @@ class LikesController extends Controller
             'is_like' => 'required',
         ]);
 
+        $data['is_like'] = intval($data['is_like']);
+
         if (array_key_exists('answer', $data) == true) {
             if (auth()->user()->id == DB::table('answers')->where('id', $data['answer'])->first()->user_id) {
                 return;
